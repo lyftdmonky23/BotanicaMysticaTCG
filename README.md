@@ -1,1 +1,16 @@
-🌿 The Botanica Mystica Blending ProgressionPlayers embark on an evolution journey by collecting and burning cards upward through five distinct tiers:   The Mythical Seed (Base)Acquisition: Purchased directly as an open-edition drop for 0.25 WAX.   Role: The high-volume entry point and the foundational fuel for the entire game economy.Whispering Sprout (Common)Blend Recipe: Burn 10x Mythical Seeds.   Role: The first major supply sink. By requiring 10 base seeds per craft, circulating base supply is rapidly depleted while giving players their first evolved card.Briarweave Flora (Uncommon)Blend Recipe: Burn 3x Whispering Sprouts.   Role: The mid-tier milestone, requiring players to coordinate multiple sprouted assets to push further up the evolutionary chain.Thornheart Warden (Rare)Blend Recipe: Burn 3x Briarweave Floras.   Role: A high-level guardian tier that demands deep dedication and extensive lower-tier burning.Sylvan Primordial (Mythic)Blend Recipe: Burn 2x Thornheart Wardens.   Role: The ultimate, hard-capped chase card (strictly limited to 75 max mints). Reaching this pinnacle requires thousands of burned base seeds, crowning the ultimate master of the forest. 
+🌿 The Botanica Mystica Blending ProgressionPlayers embark on an evolution journey by collecting and burning cards upward through five distinct tiers:   The 
+
+Mythical Seed (Base)Acquisition: Purchased directly as an open-edition drop for 0.25 WAX.   
+      Role: The high-volume entry point and the foundational fuel for the entire game economy.
+
+Whispering Sprout (Common)Blend Recipe: Burn 10x Mythical Seeds.   
+      Role: The first major supply sink. By requiring 10 base seeds per craft, circulating base supply is rapidly depleted while giving players their first evolved card.
+
+Briarweave Flora (Uncommon)Blend Recipe: Burn 3x Whispering Sprouts.
+      Role: The mid-tier milestone, requiring players to coordinate multiple sprouted assets to push further up the evolutionary chain.
+
+Thornheart Warden (Rare)Blend Recipe: Burn 3x Briarweave Floras.   
+      Role: A high-level guardian tier that demands deep dedication and extensive lower-tier burning.
+
+Sylvan Primordial (Mythic)Blend Recipe: Burn 2x Thornheart Wardens.   
+      Role: The ultimate, hard-capped chase card (strictly limited to 75 max mints). Reaching this pinnacle requires thousands of burned base seeds, crowning the ultimate master of the forest. 
