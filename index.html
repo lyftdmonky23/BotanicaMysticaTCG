@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botanica Mystica | WAX TCG</title>
+    <style>
+        :root {
+            --bg-color: #0f1412;
+            --card-bg: #1a231f;
+            --accent-green: #2ecc71;
+            --accent-gold: #f1c40f;
+            --text-main: #e0e6e3;
+            --text-sub: #a0b2a6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(180deg, #141e18 0%, var(--bg-color) 100%);
+            border-bottom: 2px solid var(--accent-green);
+        }
+
+        h1 {
+            color: var(--accent-gold);
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        p.tagline {
+            color: var(--text-sub);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--accent-green);
+            color: #000;
+            padding: 0.8rem 2rem;
+            font-weight: bold;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .cta-btn:hover {
+            background-color: #27ae60;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--accent-gold);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid #2d3e36;
+            border-radius: 12px;
+            padding: 1.2rem;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card:hover {
+            border-color: var(--accent-green);
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .card h3 {
+            color: var(--accent-green);
+            margin: 0.5rem 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.85rem;
+            border-radius: 12px;
+            background-color: #27382f;
+            color: var(--accent-gold);
+            margin-bottom: 0.8rem;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            border-top: 1px solid #1a231f;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Botanica Mystica</h1>
+        <p class="tagline">An evolution-driven NFT trading card game built on the WAX blockchain.</p>
+        <a href="#" class="cta-btn">Join Drop on Mintyblocks</a>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">The Evolution Chain</h2>
+        
+        <div class="grid">
+            <!-- Tier 1: Base -->
+            <div class="card">
+                <img src="base mythical seed.jpg" alt="The Mythical Seed">
+                <span class="badge">Base Tier — 0.25 WAX</span>
+                <h3>1. The Mythical Seed</h3>
+                <p>The foundational spark of all botanical life. Purchase direct to start your journey into the grove.</p>
+            </div>
+
+            <!-- Tier 2: Common -->
+            <div class="card">
+                <img src="common whispering sprout.jpg" alt="Whispering Sprout">
+                <span class="badge">Common — Blend Recipe</span>
+                <h3>2. Whispering Sprout</h3>
+                <p>Burn <strong>10x Mythical Seeds</strong> to unlock this initial sprout of mystical energy.</p>
+            </div>
+
+            <!-- Tier 3: Uncommon -->
+            <div class="card">
+                <img src="uncommon briarweave flora.jpg" alt="Briarweave Flora">
+                <span class="badge">Uncommon — Blend Recipe</span>
+                <h3>3. Briarweave Flora</h3>
+                <p>Burn <strong>3x Whispering Sprouts</strong> to cultivate a resilient flora protector.</p>
+            </div>
+
+            <!-- Tier 4: Rare -->
+            <div class="card">
+                <img src="Rare Thornheart Warden.jpg" alt="Thornheart Warden">
+                <span class="badge">Rare — Blend Recipe</span>
+                <h3>4. Thornheart Warden</h3>
+                <p>Burn <strong>3x Briarweave Floras</strong> to summon an imposing guardian of the wild.</p>
+            </div>
+
+            <!-- Tier 5: Mythic -->
+            <div class="card">
+                <img src="Mythic Sylvan Primordial.jpg" alt="Sylvan Primordial">
+                <span class="badge" style="color: #e74c3c;">Mythic — Capped at 75 Mints</span>
+                <h3>5. Sylvan Primordial</h3>
+                <p>Burn <strong>2x Thornheart Wardens</strong> to achieve the supreme form of nature's dominance.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Botanica Mystica (Botanica TCG). Powered by WAX & Mintyblocks.</p>
+    </footer>
+
+</body>
+</html>
