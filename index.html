@@ -1,484 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Botanica Mystica | WAX TCG</title>
-    <!-- Tailwind CSS for utility styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- WAX JS SDK for Web Wallet Integration -->
-    <script src="https://cdn.jsdelivr.net/npm/waxjs@1.6.0/dist/waxjs.js"></script>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom Theme Styling -->
-    <style>
-        :root {
-            --bg-color: #0b100d;
-            --card-bg: #141c18;
-            --card-border: #23352b;
-            --accent-green: #2ecc71;
-            --accent-green-hover: #27ae60;
-            --accent-gold: #f1c40f;
-            --accent-gold-glow: rgba(241, 196, 15, 0.3);
-            --text-main: #e0e6e3;
-            --text-sub: #8d9f94;
-        }
+<!-- Load WaxJS library -->
+<script src="https://unpkg.com/@waxio/waxjs@1.3.0/dist-web/waxjs.js"></script>
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(46, 204, 113, 0.08) 0%, transparent 70%),
-                radial-gradient(circle at 80% 100%, rgba(241, 196, 15, 0.05) 0%, transparent 50%);
-            min-height: 100vh;
-        }
+<script>
+    // List of reliable WAX mainnet RPC nodes for automatic failover
+    const rpcNodes = [
+        'https://wax.greymass.com',
+        'https://api.waxsweden.org',
+        'https://wax.eosphere.io',
+        'https://wax.pink.gg'
+    ];
 
-        .gold-text-glow {
-            text-shadow: 0 0 12px rgba(241, 196, 15, 0.4);
-        }
+    let currentRpcIndex = 0;
+    let wax = new waxjs.WaxJS({
+        rpcEndpoint: rpcNodes[currentRpcIndex],
+        tryAutoLogin: false
+    });
 
-        .green-border-glow:hover {
-            box-shadow: 0 0 20px rgba(46, 204, 113, 0.25);
-            border-color: var(--accent-green);
-        }
+    let currentAccount = null;
 
-        .card-container {
-            background: linear-gradient(145deg, #16201b 0%, #101713 100%);
-            border: 1px solid var(--card-border);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .modal-blur {
-            backdrop-filter: blur(8px);
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0b100d;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #23352b;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #2ecc71;
-        }
-    </style>
-</head>
-<body class="flex flex-col min-h-screen selection:bg-emerald-500 selection:text-black">
-
-    <!-- Navbar -->
-    <nav class="sticky top-0 z-40 border-b border-emerald-900/40 bg-opacity-90 bg-[#0b100d] backdrop-blur-md px-4 py-3">
-        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
-            
-            <!-- Brand Logo / Title -->
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-full bg-emerald-950 border border-emerald-500/50 flex items-center justify-center text-emerald-400 font-bold text-xl shadow-lg">
-                    🌿
-                </div>
-                <div>
-                    <span class="text-xl font-bold tracking-wider text-amber-400 gold-text-glow block">BOTANICA MYSTICA</span>
-                    <span class="text-xs text-emerald-500/80 tracking-widest uppercase font-semibold">WAX Blockchain TCG</span>
-                </div>
-            </div>
-
-            <!-- External Mintyblocks Link & Wallet Controls -->
-            <div class="flex items-center space-x-3">
-                <a href="https://mintyblocks.com" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-emerald-950/60 border border-emerald-600/40 text-emerald-300 hover:text-emerald-100 hover:border-emerald-500 transition-all text-sm font-medium">
-                    <span>Mintyblocks</span>
-                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                </a>
-
-                <!-- Wallet Connect Button / Wallet Info Display -->
-                <div id="wallet-section" class="flex items-center space-x-2">
-                    <button id="login-btn" onclick="loginWAX()" class="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-black font-bold shadow-lg shadow-emerald-900/40 transition-all transform active:scale-95 text-sm">
-                        <i class="fa-solid fa-wallet"></i>
-                        <span>Connect WAX Wallet</span>
-                    </button>
-                    
-                    <div id="user-info" class="hidden flex items-center bg-emerald-950/80 border border-emerald-500/30 rounded-xl p-1.5 px-3 space-x-3">
-                        <div class="flex items-center space-x-2 text-xs">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                            <span id="user-account" class="font-mono text-emerald-300 font-bold">...</span>
-                        </div>
-                        <div class="h-4 w-px bg-emerald-800"></div>
-                        <span id="user-balance" class="text-xs font-semibold text-amber-400">0.00 WAX</span>
-                        <button onclick="logoutWAX()" class="text-xs text-red-400 hover:text-red-300 ml-1 p-1" title="Disconnect">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Header / Hero Banner -->
-    <header class="relative py-12 md:py-16 px-4 text-center border-b border-emerald-900/30 overflow-hidden">
-        <div class="max-w-4xl mx-auto relative z-10 space-y-4">
-            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest bg-amber-500/10 text-amber-400 border border-amber-500/30">
-                Pilot Collection Drop
-            </span>
-            <h1 class="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-emerald-400 tracking-tight gold-text-glow">
-                BOTANICA MYSTICA
-            </h1>
-            <p class="text-lg md:text-xl text-emerald-200/80 max-w-2xl mx-auto font-light leading-relaxed">
-                Harness the ancient energy of nature. Collect, blend, and evolve your cards starting from a single 
-                <strong class="text-amber-300 font-semibold">Mythical Seed</strong> to the legendary <strong class="text-emerald-300 font-semibold">Sylvan Primordial</strong>.
-            </p>
-            
-            <!-- CTA Quick Links -->
-            <div class="flex flex-wrap justify-center gap-4 pt-4">
-                <a href="#purchase-section" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold transition-all shadow-lg shadow-amber-500/20 flex items-center space-x-2">
-                    <i class="fa-solid fa-seedling"></i>
-                    <span>Buy Mythical Seeds</span>
-                </a>
-                <a href="https://mintyblocks.com" target="_blank" rel="noopener" class="px-6 py-3 rounded-xl bg-emerald-900/50 hover:bg-emerald-900/80 border border-emerald-500/40 text-emerald-200 font-semibold transition-all flex items-center space-x-2">
-                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                    <span>View Drop on Mintyblocks</span>
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <main class="flex-grow max-w-7xl mx-auto px-4 py-12 space-y-16">
-
-        <!-- DIRECT PURCHASE MODULE SECTION -->
-        <section id="purchase-section" class="scroll-mt-24">
-            <div class="max-w-3xl mx-auto bg-gradient-to-b from-[#16221c] to-[#0f1713] border-2 border-emerald-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-                <div class="absolute -top-12 -right-12 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                <div class="absolute -bottom-12 -left-12 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-                <div class="flex flex-col sm:flex-row items-center gap-6">
-                    <!-- Image Preview -->
-                    <div class="w-full sm:w-1/3 flex-shrink-0 text-center">
-                        <img src="base mythical seed.jpg" alt="The Mythical Seed" class="w-48 h-auto rounded-xl mx-auto border border-emerald-500/30 shadow-xl object-cover hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/250x350/141c18/2ecc71?text=Mythical+Seed'">
-                        <span class="inline-block mt-2 text-xs font-semibold text-emerald-400">Base Tier Drop • Open Edition</span>
-                    </div>
-
-                    <!-- Interactive Checkout Logic -->
-                    <div class="w-full sm:w-2/3 space-y-5">
-                        <div>
-                            <div class="flex justify-between items-start">
-                                <h2 class="text-2xl font-bold text-amber-400">Mint Mythical Seeds</h2>
-                                <span class="text-xs bg-emerald-900/60 text-emerald-300 px-2.5 py-1 rounded-md border border-emerald-600/30 font-mono">0.25 WAX / seed</span>
-                            </div>
-                            <p class="text-xs text-gray-400 mt-1">Foundational fuel for your collection. Mint base seeds directly into your wallet to start blending.</p>
-                        </div>
-
-                        <!-- Quantity Selector Buttons -->
-                        <div class="space-y-2">
-                            <label class="block text-xs font-semibold text-emerald-300 uppercase tracking-wider">Select Quantity:</label>
-                            <div class="grid grid-cols-4 gap-2">
-                                <button type="button" onclick="setQuantity(1)" class="qty-btn px-3 py-2 rounded-lg bg-emerald-950/80 border border-emerald-700/50 text-emerald-200 text-sm font-bold hover:border-emerald-400 transition-all active">1x</button>
-                                <button type="button" onclick="setQuantity(5)" class="qty-btn px-3 py-2 rounded-lg bg-emerald-950/80 border border-emerald-700/50 text-emerald-200 text-sm font-bold hover:border-emerald-400 transition-all">5x</button>
-                                <button type="button" onclick="setQuantity(10)" class="qty-btn px-3 py-2 rounded-lg bg-emerald-950/80 border border-emerald-700/50 text-emerald-200 text-sm font-bold hover:border-emerald-400 transition-all">10x</button>
-                                <input type="number" id="custom-qty" min="1" max="100" value="1" oninput="updateCustomQty(this.value)" class="w-full bg-emerald-950/90 border border-emerald-700/50 rounded-lg text-center text-emerald-200 font-bold text-sm focus:outline-none focus:border-amber-400 px-1" placeholder="Custom">
-                            </div>
-                        </div>
-
-                        <!-- Total Calculation Display -->
-                        <div class="flex justify-between items-center p-3 rounded-xl bg-black/40 border border-emerald-900/60">
-                            <span class="text-sm font-medium text-gray-300">Total Price:</span>
-                            <div class="text-right">
-                                <span id="total-wax-display" class="text-xl font-extrabold text-amber-400 font-mono">0.25 WAX</span>
-                                <span class="block text-[10px] text-gray-400">Direct Smart Contract Transaction</span>
-                            </div>
-                        </div>
-
-                        <!-- Action Purchase Buttons -->
-                        <div class="space-y-2">
-                            <button id="buy-seeds-btn" onclick="executeSeedPurchase()" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-black font-extrabold text-base shadow-lg shadow-amber-500/20 transition-all transform active:scale-98 flex items-center justify-center space-x-2">
-                                <i class="fa-solid fa-bolt"></i>
-                                <span>Purchase Seeds Direct</span>
-                            </button>
-
-                            <a href="https://mintyblocks.com" target="_blank" rel="noopener" class="w-full py-2.5 px-4 rounded-xl bg-emerald-950/40 hover:bg-emerald-900/40 border border-emerald-600/30 text-emerald-300 hover:text-emerald-100 text-xs font-semibold transition-all flex items-center justify-center space-x-2">
-                                <span>Prefer Mintyblocks Marketplace? Buy There</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- EVOLUTION TIER CARD GRID SECTION -->
-        <section class="space-y-8">
-            <div class="text-center space-y-2">
-                <h2 class="text-3xl font-extrabold text-amber-400 gold-text-glow">The Evolution Chain</h2>
-                <p class="text-emerald-200/70 text-sm max-w-xl mx-auto">
-                    Burn lower-tier cards through our on-chain blending recipes to ascend through all 5 botanical ranks.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-                
-                <!-- Tier 1: Base -->
-                <div class="card-container rounded-2xl p-4 flex flex-col items-center text-center green-border-glow">
-                    <div class="relative w-full mb-3 overflow-hidden rounded-xl">
-                        <img src="base mythical seed.jpg" alt="The Mythical Seed" class="w-full h-auto object-cover rounded-xl shadow-md hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/250x350/141c18/2ecc71?text=Mythical+Seed'">
-                        <span class="absolute top-2 left-2 bg-black/80 backdrop-blur-md text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-500/30">Tier 1</span>
-                    </div>
-                    <span class="text-xs font-bold text-emerald-400 bg-emerald-950/80 px-2.5 py-1 rounded-full border border-emerald-800 mb-2">0.25 WAX Entry</span>
-                    <h3 class="text-lg font-bold text-amber-300">1. The Mythical Seed</h3>
-                    <p class="text-xs text-gray-400 mt-2 leading-relaxed flex-grow">The foundational spark of all botanical life. Purchase direct to start your journey into the grove.</p>
-                </div>
-
-                <!-- Tier 2: Common -->
-                <div class="card-container rounded-2xl p-4 flex flex-col items-center text-center green-border-glow">
-                    <div class="relative w-full mb-3 overflow-hidden rounded-xl">
-                        <img src="common whispering sprout.jpg" alt="Whispering Sprout" class="w-full h-auto object-cover rounded-xl shadow-md hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/250x350/141c18/2ecc71?text=Whispering+Sprout'">
-                        <span class="absolute top-2 left-2 bg-black/80 backdrop-blur-md text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-500/30">Tier 2</span>
-                    </div>
-                    <span class="text-xs font-bold text-emerald-300 bg-emerald-950/80 px-2.5 py-1 rounded-full border border-emerald-800 mb-2">10x Seed Blend</span>
-                    <h3 class="text-lg font-bold text-emerald-400">2. Whispering Sprout</h3>
-                    <p class="text-xs text-gray-400 mt-2 leading-relaxed flex-grow">Burn <strong>10x Mythical Seeds</strong> to unlock this initial sprout of mystical energy.</p>
-                </div>
-
-                <!-- Tier 3: Uncommon -->
-                <div class="card-container rounded-2xl p-4 flex flex-col items-center text-center green-border-glow">
-                    <div class="relative w-full mb-3 overflow-hidden rounded-xl">
-                        <img src="uncommon briarweave flora.jpg" alt="Briarweave Flora" class="w-full h-auto object-cover rounded-xl shadow-md hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/250x350/141c18/2ecc71?text=Briarweave+Flora'">
-                        <span class="absolute top-2 left-2 bg-black/80 backdrop-blur-md text-teal-300 text-[10px] font-bold px-2 py-0.5 rounded border border-teal-500/30">Tier 3</span>
-                    </div>
-                    <span class="text-xs font-bold text-teal-300 bg-teal-950/80 px-2.5 py-1 rounded-full border border-teal-800 mb-2">3x Sprout Blend</span>
-                    <h3 class="text-lg font-bold text-teal-300">3. Briarweave Flora</h3>
-                    <p class="text-xs text-gray-400 mt-2 leading-relaxed flex-grow">Burn <strong>3x Whispering Sprouts</strong> to cultivate a resilient flora protector.</p>
-                </div>
-
-                <!-- Tier 4: Rare -->
-                <div class="card-container rounded-2xl p-4 flex flex-col items-center text-center green-border-glow">
-                    <div class="relative w-full mb-3 overflow-hidden rounded-xl">
-                        <img src="Rare Thornheart Warden.jpg" alt="Thornheart Warden" class="w-full h-auto object-cover rounded-xl shadow-md hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/250x350/141c18/2ecc71?text=Thornheart+Warden'">
-                        <span class="absolute top-2 left-2 bg-black/80 backdrop-blur-md text-purple-400 text-[10px] font-bold px-2 py-0.5 rounded border border-purple-500/30">Tier 4</span>
-                    </div>
-                    <span class="text-xs font-bold text-purple-300 bg-purple-950/80 px-2.5 py-1 rounded-full border border-purple-800 mb-2">3x Flora Blend</span>
-                    <h3 class="text-lg font-bold text-purple-400">4. Thornheart Warden</h3>
-                    <p class="text-xs text-gray-400 mt-2 leading-relaxed flex-grow">Burn <strong>3x Briarweave Floras</strong> to summon an imposing guardian of the wild.</p>
-                </div>
-
-                <!-- Tier 5: Mythic -->
-                <div class="card-container rounded-2xl p-4 flex flex-col items-center text-center green-border-glow border-amber-500/40">
-                    <div class="relative w-full mb-3 overflow-hidden rounded-xl">
-                        <img src="Mythic Sylvan Primordial.jpg" alt="Sylvan Primordial" class="w-full h-auto object-cover rounded-xl shadow-md hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/250x350/141c18/2ecc71?text=Sylvan+Primordial'">
-                        <span class="absolute top-2 left-2 bg-black/80 backdrop-blur-md text-red-400 text-[10px] font-bold px-2 py-0.5 rounded border border-red-500/30">Tier 5</span>
-                    </div>
-                    <span class="text-xs font-bold text-red-400 bg-red-950/80 px-2.5 py-1 rounded-full border border-red-800 mb-2">Cap: 75 Mints</span>
-                    <h3 class="text-lg font-bold text-amber-400 gold-text-glow">5. Sylvan Primordial</h3>
-                    <p class="text-xs text-gray-400 mt-2 leading-relaxed flex-grow">Burn <strong>2x Thornheart Wardens</strong> to achieve the supreme form of nature's dominance.</p>
-                </div>
-
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Modal Message Display (Replaces Alert Boxes) -->
-    <div id="status-modal" class="fixed inset-0 z-50 hidden modal-blur bg-black/70 flex items-center justify-center p-4">
-        <div class="bg-[#141c18] border border-emerald-500/40 rounded-2xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl">
-            <div id="modal-icon" class="text-4xl text-amber-400">
-                <i class="fa-solid fa-circle-info"></i>
-            </div>
-            <h3 id="modal-title" class="text-xl font-bold text-emerald-200">Notice</h3>
-            <p id="modal-message" class="text-sm text-gray-300 leading-relaxed"></p>
-            <button onclick="closeModal()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-black font-bold text-sm transition-all">
-                Continue
-            </button>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="border-t border-emerald-900/40 py-8 px-4 text-center text-xs text-emerald-200/50 space-y-3">
-        <div class="flex justify-center space-x-6 text-emerald-400 text-base">
-            <a href="https://mintyblocks.com" target="_blank" rel="noopener" class="hover:text-amber-400 transition-colors" title="Mintyblocks"><i class="fa-solid fa-store"></i></a>
-            <a href="#" class="hover:text-amber-400 transition-colors" title="Discord Community"><i class="fa-brands fa-discord"></i></a>
-            <a href="#" class="hover:text-amber-400 transition-colors" title="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-        </div>
-        <p>&copy; 2026 Botanica Mystica (Botanica TCG). All rights reserved.</p>
-        <p class="text-[10px] text-gray-500">Built on WAX Blockchain • Managed via Mintyblocks</p>
-    </footer>
-
-    <!-- WAX & Application Logic JS -->
-    <script>
-        // CONFIGURATION PARAMETERS
-        const PRICE_PER_SEED = 0.25;
-        const RECEIVER_ACCOUNT = "botanica.tcg"; // Collection drop or treasury account
-        const MEMO_TEXT = "Botanica Mystica Direct Seed Purchase";
-
-        let currentQty = 1;
-        let userAccount = null;
-        let wax = null;
-
-        // Initialize WAX Cloud Wallet Instance
-        window.addEventListener('load', () => {
-            if (window.waxjs) {
-                wax = new waxjs.WaxJS({
-                    rpcEndpoint: 'https://wax.greymass.com'
-                });
-                // Check if user is already logged in
-                wax.isAutoLoginAvailable().then((isAvailable) => {
-                    if (isAvailable) {
-                        userAccount = wax.userAccount;
-                        updateUILoggedIn();
-                    }
-                }).catch(err => console.log("Auto-login check:", err));
-            }
+    // Helper function to try next RPC node if one fails
+    function rotateRpcNode() {
+        currentRpcIndex = (currentRpcIndex + 1) % rpcNodes.length;
+        console.log("Switching to WAX RPC node:", rpcNodes[currentRpcIndex]);
+        wax = new waxjs.WaxJS({
+            rpcEndpoint: rpcNodes[currentRpcIndex],
+            tryAutoLogin: false
         });
+    }
 
-        // Quantity Selector Helper
-        function setQuantity(qty) {
-            currentQty = parseInt(qty);
-            document.getElementById('custom-qty').value = currentQty;
+    async function connectWallet() {
+        const walletBtn = document.getElementById('wallet-btn');
+        const statusText = document.getElementById('wallet-status');
 
-            // Highlight Active Quantity Button
-            document.querySelectorAll('.qty-btn').forEach(btn => {
-                btn.classList.remove('bg-amber-500', 'text-black', 'border-amber-400');
-                btn.classList.add('bg-emerald-950/80', 'text-emerald-200', 'border-emerald-700/50');
-                if (btn.innerText === `${qty}x`) {
-                    btn.classList.remove('bg-emerald-950/80', 'text-emerald-200', 'border-emerald-700/50');
-                    btn.classList.add('bg-amber-500', 'text-black', 'border-amber-400');
-                }
-            });
+        walletBtn.innerText = "Connecting...";
 
-            recalculateTotal();
-        }
-
-        function updateCustomQty(val) {
-            let parsed = parseInt(val) || 1;
-            if (parsed < 1) parsed = 1;
-            if (parsed > 100) parsed = 100;
-            currentQty = parsed;
-
-            // Reset preset buttons styling
-            document.querySelectorAll('.qty-btn').forEach(btn => {
-                btn.classList.remove('bg-amber-500', 'text-black', 'border-amber-400');
-                btn.classList.add('bg-emerald-950/80', 'text-emerald-200', 'border-emerald-700/50');
-            });
-
-            recalculateTotal();
-        }
-
-        function recalculateTotal() {
-            const total = (currentQty * PRICE_PER_SEED).toFixed(2);
-            document.getElementById('total-wax-display').innerText = `${total} WAX`;
-        }
-
-        // Login to WAX Wallet
-        async function loginWAX() {
-            if (!wax) {
-                showModal("Wallet Error", "WAX JS SDK could not be loaded. Please ensure you have an active internet connection.");
-                return;
-            }
-
-            try {
-                userAccount = await wax.login();
-                updateUILoggedIn();
-                showModal("Wallet Connected", `Successfully logged in as: ${userAccount}`);
-            } catch (error) {
-                console.error("Login failed:", error);
-                showModal("Connection Failed", error.message || "Failed to authenticate with WAX Cloud Wallet.");
-            }
-        }
-
-        function logoutWAX() {
-            userAccount = null;
-            document.getElementById('login-btn').classList.remove('hidden');
-            document.getElementById('user-info').classList.add('hidden');
-            showModal("Disconnected", "Your WAX wallet has been disconnected.");
-        }
-
-        function updateUILoggedIn() {
-            if (!userAccount) return;
-            document.getElementById('login-btn').classList.add('hidden');
-            document.getElementById('user-info').classList.remove('hidden');
-            document.getElementById('user-account').innerText = userAccount;
+        try {
+            // Initiate My Cloud Wallet login
+            currentAccount = await wax.login();
             
-            // Fetch account WAX balance asynchronously
-            fetchAccountBalance(userAccount);
-        }
-
-        async function fetchAccountBalance(account) {
-            try {
-                const response = await fetch('https://wax.greymass.com/v1/chain/get_currency_balance', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        code: 'eosio.token',
-                        account: account,
-                        symbol: 'WAX'
-                    })
-                });
-                const data = await response.json();
-                if (data && data.length > 0) {
-                    document.getElementById('user-balance').innerText = data[0];
-                }
-            } catch (err) {
-                console.log("Balance fetch error:", err);
+            // Success update UI
+            walletBtn.innerText = "Wallet Connected";
+            walletBtn.style.backgroundColor = "#27ae60";
+            statusText.innerHTML = `Connected: <strong style="color: #f1c40f;">${currentAccount}</strong>`;
+        } catch (error) {
+            console.error("Wallet login error:", error);
+            
+            // Try rotating node and notify user
+            rotateRpcNode();
+            
+            if (window.location.protocol === 'file:') {
+                statusText.innerHTML = `<span style="color:#e74c3c;">⚠️ Please test on GitHub Pages (https://) rather than opening the raw HTML file directly.</span>`;
+            } else {
+                statusText.innerHTML = `<span style="color:#e74c3c;">Connection error (${error.message || 'Node Timeout'}). Try clicking again.</span>`;
             }
+            
+            walletBtn.innerText = "Connect WAX Wallet";
+        }
+    }
+
+    async function executePurchase() {
+        const qty = parseInt(document.getElementById('seed-qty').value) || 1;
+        const totalAmount = (qty * 0.25).toFixed(8);
+
+        if (!currentAccount) {
+            alert("Please connect your WAX Wallet first!");
+            await connectWallet();
+            if (!currentAccount) return;
         }
 
-        // Execute WAX Smart Contract Transaction
-        async function executeSeedPurchase() {
-            if (!userAccount) {
-                showModal("Wallet Required", "Please connect your WAX Cloud Wallet using the button at the top right before purchasing.");
-                return;
-            }
+        try {
+            // Trigger WAX Cloud Wallet transaction pop-up
+            const result = await wax.api.transact({
+                actions: [{
+                    account: 'eosio.token',
+                    name: 'transfer',
+                    authorization: [{
+                        actor: currentAccount,
+                        permission: 'active',
+                    }],
+                    data: {
+                        from: currentAccount,
+                        to: 'botanicadesg', // Replace with your collection/drop deposit account
+                        quantity: `${totalAmount} WAX`,
+                        memo: 'Purchase Mythical Seeds',
+                    },
+                }]
+            }, {
+                blocksBehind: 3,
+                expireSeconds: 30,
+            });
 
-            const totalWax = (currentQty * PRICE_PER_SEED).toFixed(8);
-            const formattedQuantity = `${totalWax} WAX`;
-
-            // Prepare EOSIO Token Transfer Action
-            const action = {
-                account: 'eosio.token',
-                name: 'transfer',
-                authorization: [{
-                    actor: userAccount,
-                    permission: 'active',
-                }],
-                data: {
-                    from: userAccount,
-                    to: RECEIVER_ACCOUNT,
-                    quantity: formattedQuantity,
-                    memo: `${MEMO_TEXT} - ${currentQty} Seeds`
-                },
-            };
-
-            try {
-                showModal("Processing Transaction", "Please approve the transaction prompt in your WAX Cloud Wallet popup...");
-                
-                // Trigger transaction via WAX JS
-                const result = await wax.api.transact({
-                    actions: [action]
-                }, {
-                    blocksBehind: 3,
-                    expireSeconds: 30
-                });
-
-                showModal("Purchase Successful! 🎉", `Transaction complete! Transaction ID: ${result.transaction_id.slice(0, 12)}... Your ${currentQty} Mythical Seed(s) will be transferred to your wallet.`);
-                
-                // Refresh balance
-                fetchAccountBalance(userAccount);
-
-            } catch (error) {
-                console.error("Transaction Error:", error);
-                showModal("Transaction Declined", error.message || "The transaction was canceled or failed to execute on chain.");
-            }
+            alert(`Success! Purchased ${qty} Mythical Seed(s)!\nTx ID: ${result.transaction_id}`);
+        } catch (e) {
+            console.error("Transaction failed:", e);
+            alert("Transaction canceled or failed: " + e.message);
         }
+    }
 
-        // Modal Handling Logic
-        function showModal(title, message) {
-            document.getElementById('modal-title').innerText = title;
-            document.getElementById('modal-message').innerText = message;
-            document.getElementById('status-modal').classList.remove('hidden');
-        }
-
-        function closeModal() {
-            document.getElementById('status-modal').classList.add('hidden');
-        }
-    </script>
-</body>
-</html>
+    // Auto-recalculate WAX total when quantity input changes
+    document.getElementById('seed-qty').addEventListener('input', function(e) {
+        let val = parseInt(e.target.value);
+        if (isNaN(val) || val < 1) val = 1;
+        document.getElementById('total-cost').innerText = (val * 0.25).toFixed(2);
+    });
+</script>
