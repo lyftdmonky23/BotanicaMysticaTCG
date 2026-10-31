@@ -15,6 +15,10 @@
             --border-color: #2d3e36;
         }
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
@@ -31,26 +35,23 @@
             border-bottom: 2px solid var(--accent-green);
         }
 
-        /* Top Collection Cover Poster */
         .collection-cover {
             width: 100%;
-            max-width: 400px;
+            max-width: 380px;
             height: auto;
             border-radius: 12px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.8);
             border: 2px solid var(--accent-gold);
             margin-bottom: 1.5rem;
-            transition: transform 0.3s;
-        }
-
-        .collection-cover:hover {
-            transform: scale(1.02);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         h1 {
             color: var(--accent-gold);
             font-size: 2.8rem;
-            margin-bottom: 0.5rem;
+            margin: 0.5rem 0;
             letter-spacing: 2px;
         }
 
@@ -77,14 +78,13 @@
             font-weight: bold;
             border-radius: 25px;
             text-decoration: none;
-            transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s, background-color 0.2s;
             border: none;
         }
 
         .cta-btn:hover {
             background-color: #27ae60;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
         }
 
         .cta-btn.gold {
@@ -94,7 +94,6 @@
 
         .cta-btn.gold:hover {
             background-color: #d4ac0d;
-            box-shadow: 0 4px 12px rgba(241, 196, 15, 0.3);
         }
 
         .container {
@@ -119,7 +118,6 @@
             text-align: center;
         }
 
-        /* Visual Evolution Chain Above Text */
         .visual-evolution-strip {
             display: flex;
             align-items: center;
@@ -136,17 +134,11 @@
         }
 
         .strip-card img {
-            width: 130px;
+            width: 120px;
             height: auto;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.6);
             border: 1px solid var(--border-color);
-            transition: transform 0.2s;
-        }
-
-        .strip-card img:hover {
-            transform: scale(1.05);
-            border-color: var(--accent-green);
         }
 
         .strip-arrow {
@@ -156,7 +148,6 @@
             flex-shrink: 0;
         }
 
-        /* Evolution Cycle Overview Styling */
         .evolution-flow {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -204,199 +195,4 @@
             font-size: 1.2rem;
         }
 
-        .step-content p {
-            margin: 0;
-            color: var(--text-sub);
-        }
-
-        /* Card Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 2rem;
-            justify-content: center;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.2rem;
-            text-align: center;
-            transition: transform 0.3s, border-color 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .card:hover {
-            border-color: var(--accent-green);
-            transform: translateY(-5px);
-        }
-
-        .card img {
-            width: 100%;
-            max-width: 230px;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        .card h3 {
-            color: var(--accent-green);
-            margin: 0.5rem 0;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            font-size: 0.85rem;
-            border-radius: 12px;
-            background-color: #27382f;
-            color: var(--accent-gold);
-            margin-bottom: 0.8rem;
-            font-weight: bold;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-sub);
-            font-size: 0.9rem;
-            border-top: 1px solid #1a231f;
-            margin-top: 3rem;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <!-- Top Cover Photo -->
-        <img src="botanica mystica.jpg" alt="Botanica Mystica Collection Cover" class="collection-cover">
-        
-        <h1>Botanica Mystica</h1>
-        <p class="tagline">An evolution-driven burn-to-mint NFT trading card game built on the WAX blockchain.</p>
-        
-        <div class="btn-group">
-            <a href="https://wax.atomichub.io/explorer/collection/wax-mainnet/botanicacard" target="_blank" class="cta-btn gold">View Collection on AtomicHub ↗</a>
-            <a href="https://wax.mintyblocks.com/mintyblocks/blends" target="_blank" class="cta-btn">Start Blending on MintyBlocks ↗</a>
-        </div>
-    </header>
-
-    <div class="container">
-        
-        <!-- Action Hub -->
-        <div class="action-box">
-            <h3 style="color: var(--accent-gold); margin-top: 0; font-size: 1.5rem;">Enter the Grove</h3>
-            <p style="color: var(--text-sub); max-width: 700px; margin: 0 auto 1.5rem auto;">
-                Gather raw seeds on secondary market drops or burn your plant cards through MintyBlocks recipes to forge rare forest guardians.
-            </p>
-            <div class="btn-group">
-                <a href="https://wax.atomichub.io/explorer/collection/wax-mainnet/botanicacard" target="_blank" class="cta-btn gold">Browse AtomicHub Marketplace ↗</a>
-                <a href="https://wax.mintyblocks.com/mintyblocks/blends" target="_blank" class="cta-btn">Open MintyBlocks Portal ↗</a>
-            </div>
-        </div>
-
-        <h2 class="section-title">The Complete Evolution Cycle</h2>
-
-        <!-- Visual Evolution Strip -->
-        <div class="visual-evolution-strip">
-            <div class="strip-card">
-                <img src="base mythical seed.jpg" alt="Whispering Seed">
-                <div style="font-size: 0.8rem; color: var(--accent-gold); margin-top: 4px;">Seed (Base)</div>
-            </div>
-            <div class="strip-arrow">➔</div>
-            <div class="strip-card">
-                <img src="common whispering sprout.jpg" alt="Whispering Sprout">
-                <div style="font-size: 0.8rem; color: var(--accent-green); margin-top: 4px;">Sprout (Common)</div>
-            </div>
-            <div class="strip-arrow">➔</div>
-            <div class="strip-card">
-                <img src="uncommon briarweave flora.jpg" alt="Briarweave Flora">
-                <div style="font-size: 0.8rem; color: var(--accent-green); margin-top: 4px;">Flora (Uncommon)</div>
-            </div>
-            <div class="strip-arrow">➔</div>
-            <div class="strip-card">
-                <img src="Rare Thornheart Warden.jpg" alt="Thornheart Warden">
-                <div style="font-size: 0.8rem; color: var(--accent-gold); margin-top: 4px;">Warden (Rare)</div>
-            </div>
-            <div class="strip-arrow">➔</div>
-            <div class="strip-card">
-                <img src="Mythic Sylvan Primordial.jpg" alt="Sylvan Primordial">
-                <div style="font-size: 0.8rem; color: #e74c3c; margin-top: 4px;">Primordial (Mythic)</div>
-            </div>
-        </div>
-
-        <!-- Step-by-Step Text Flow -->
-        <div class="evolution-flow">
-            <div class="flow-step">
-                <div class="step-num">1</div>
-                <div class="step-content">
-                    <h4>Stage 1: Primary Harvest — Whispering Seed</h4>
-                    <p>Collect base-tier <strong>Whispering Seeds</strong> (0.25 WAX entry price). These seeds serve as the infinite-supply raw reagent that powers the entire ecosystem.</p>
-                </div>
-            </div>
-
-            <div class="flow-step">
-                <div class="step-num">2</div>
-                <div class="step-content">
-                    <h4>Stage 2: Blend #1 — "The First Awakening"</h4>
-                    <p>Burn <strong>10x Whispering Seeds</strong> on MintyBlocks to synthesize <strong>1x Whispering Sprout</strong> (Common Tier).</p>
-                </div>
-            </div>
-
-            <div class="flow-step">
-                <div class="step-num">3</div>
-                <div class="step-content">
-                    <h4>Stage 3: Blend #2 — "The Verdant Weave"</h4>
-                    <p>Burn <strong>3x Whispering Sprouts</strong> (requires 30 Seeds total) to synthesize <strong>1x Briarweave Flora</strong> (Uncommon Tier).</p>
-                </div>
-            </div>
-
-            <div class="flow-step">
-                <div class="step-num">4</div>
-                <div class="step-content">
-                    <h4>Stage 4: Blend #3 — "Rise of the Warden"</h4>
-                    <p>Burn <strong>3x Briarweave Floras</strong> (requires 90 Seeds total) to synthesize <strong>1x Thornheart Warden</strong> (Rare Tier).</p>
-                </div>
-            </div>
-
-            <div class="flow-step">
-                <div class="step-num mythic">5</div>
-                <div class="step-content">
-                    <h4>Stage 5: Blend #4 — "Awakening the Primordial" (Apex Tier)</h4>
-                    <p>Burn <strong>2x Thornheart Wardens</strong> (requires 180 Seeds total) to claim <strong>1x Sylvan Primordial</strong> (Mythic Tier).</p>
-                    <p style="color: var(--accent-gold); margin-top: 0.5rem; font-weight: bold;">
-                        🔒 Global Hard Cap: Strictly limited to 75 total Sylvan Primordial mints. Once 75 exist, no more can ever be created (requiring a total ecosystem burn of 13,500 Whispering Seeds)!
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card Lineup Grid -->
-        <h2 class="section-title">Card Lineup Showcase</h2>
-        
-        <div class="grid">
-            <!-- Tier 1: Base -->
-            <div class="card">
-                <img src="base mythical seed.jpg" alt="Whispering Seed (Base)">
-                <span class="badge">Base Reagent — 0.25 WAX</span>
-                <h3>1. Whispering Seed</h3>
-                <p>The core foundational spark of all botanical life in the grove.</p>
-            </div>
-
-            <!-- Tier 2: Common -->
-            <div class="card">
-                <img src="common whispering sprout.jpg" alt="Whispering Sprout">
-                <span class="badge">Common — Blend #1</span>
-                <h3>2. Whispering Sprout</h3>
-                <p>Synthesized by burning <strong>10x Whispering Seeds</strong>.</p>
-            </div>
-
-            <!-- Tier 3: Uncommon -->
-            <div class="card">
-                <img src="uncommon briarweave flora.jpg" alt="Briarweave Flora">
-                <span class="badge">Uncommon — Blend #2</span>
-                <h3>3. Briarweave Flora</h3>
-                <p>Synthesized
+        .step-content p
