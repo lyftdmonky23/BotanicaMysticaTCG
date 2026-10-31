@@ -41,7 +41,7 @@
         p.tagline {
             color: var(--text-sub);
             font-size: 1.2rem;
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto 1.5rem auto;
         }
 
@@ -71,15 +71,14 @@
             box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
         }
 
-        .cta-btn.secondary {
-            background-color: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--accent-green);
+        .cta-btn.gold {
+            background-color: var(--accent-gold);
+            color: #000;
         }
 
-        .cta-btn.secondary:hover {
-            background-color: var(--accent-green);
-            color: #000;
+        .cta-btn.gold:hover {
+            background-color: #d4ac0d;
+            box-shadow: 0 4px 12px rgba(241, 196, 15, 0.3);
         }
 
         .container {
@@ -95,9 +94,72 @@
             margin-bottom: 2rem;
         }
 
+        .action-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--accent-green);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        /* Evolution Cycle Overview Styling */
+        .evolution-flow {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .flow-step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .step-num {
+            background-color: var(--accent-green);
+            color: #000;
+            font-weight: bold;
+            border-radius: 50%;
+            min-width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .step-num.mythic {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+
+        .step-content h4 {
+            margin: 0 0 0.3rem 0;
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+        }
+
+        .step-content p {
+            margin: 0;
+            color: var(--text-sub);
+        }
+
+        /* Card Grid */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             justify-content: center;
         }
@@ -144,15 +206,6 @@
             font-weight: bold;
         }
 
-        .action-box {
-            background-color: var(--card-bg);
-            border: 1px solid var(--accent-green);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2.5rem;
-            text-align: center;
-        }
-
         footer {
             text-align: center;
             padding: 2rem;
@@ -167,80 +220,18 @@
 
     <header>
         <h1>Botanica Mystica</h1>
-        <p class="tagline">An evolution-driven NFT trading card game built on the WAX blockchain.</p>
+        <p class="tagline">An evolution-driven burn-to-mint NFT trading card game built on the WAX blockchain.</p>
         
         <div class="btn-group">
-            <a href="https://wax.atomichub.io/explorer/collection/wax-mainnet/botanicacard" target="_blank" class="cta-btn">View Collection on AtomicHub ↗</a>
-            <a href="https://wax.mintyblocks.com/mintyblocks/blends" target="_blank" class="cta-btn secondary">Enter MintyBlocks Blends ↗</a>
+            <a href="https://wax.atomichub.io/explorer/collection/wax-mainnet/botanicacard" target="_blank" class="cta-btn gold">View Collection on AtomicHub ↗</a>
+            <a href="https://wax.mintyblocks.com/mintyblocks/blends" target="_blank" class="cta-btn">Start Blending on MintyBlocks ↗</a>
         </div>
     </header>
 
     <div class="container">
         
-        <!-- Marketplace & Blending Action Hub -->
+        <!-- Quick Action Hub -->
         <div class="action-box">
-            <h3 style="color: var(--accent-gold); margin-top: 0; font-size: 1.5rem;">Collect, Burn & Evolve</h3>
+            <h3 style="color: var(--accent-gold); margin-top: 0; font-size: 1.5rem;">Enter the Grove</h3>
             <p style="color: var(--text-sub); max-width: 700px; margin: 0 auto 1.5rem auto;">
-                Acquire Whispering Seeds on AtomicHub or burn lower-tier flora on MintyBlocks to cultivate rare protectors and reach the apex Sylvan Primordial.
-            </p>
-            <div class="btn-group">
-                <a href="https://wax.atomichub.io/explorer/collection/wax-mainnet/botanicacard" target="_blank" class="cta-btn" style="background-color: var(--accent-gold); color: #000;">Trade on AtomicHub ↗</a>
-                <a href="https://wax.mintyblocks.com/mintyblocks/blends" target="_blank" class="cta-btn">Blend on MintyBlocks ↗</a>
-            </div>
-        </div>
-
-        <h2 class="section-title">The Evolution Chain</h2>
-        
-        <div class="grid">
-            <!-- Tier 1: Base -->
-            <div class="card">
-                <img src="base mythical seed.jpg" alt="Whispering Seed (Base)">
-                <span class="badge">Base Tier — 0.25 WAX</span>
-                <h3>1. Whispering Seed</h3>
-                <p>The foundational spark of all botanical life. Acquire direct to start your journey into the grove.</p>
-            </div>
-
-            <!-- Tier 2: Common -->
-            <div class="card">
-                <img src="common whispering sprout.jpg" alt="Whispering Sprout">
-                <span class="badge">Common — Blend Recipe</span>
-                <h3>2. Whispering Sprout</h3>
-                <p>Burn <strong>10x Whispering Seeds</strong> to unlock this initial sprout of mystical energy.</p>
-            </div>
-
-            <!-- Tier 3: Uncommon -->
-            <div class="card">
-                <img src="uncommon briarweave flora.jpg" alt="Briarweave Flora">
-                <span class="badge">Uncommon — Blend Recipe</span>
-                <h3>3. Briarweave Flora</h3>
-                <p>Burn <strong>3x Whispering Sprouts</strong> to cultivate a resilient flora protector.</p>
-            </div>
-
-            <!-- Tier 4: Rare -->
-            <div class="card">
-                <img src="Rare Thornheart Warden.jpg" alt="Thornheart Warden">
-                <span class="badge">Rare — Blend Recipe</span>
-                <h3>4. Thornheart Warden</h3>
-                <p>Burn <strong>3x Briarweave Floras</strong> to summon an imposing guardian of the wild.</p>
-            </div>
-
-            <!-- Tier 5: Mythic -->
-            <div class="card">
-                <img src="Mythic Sylvan Primordial.jpg" alt="Sylvan Primordial">
-                <span class="badge" style="color: #e74c3c;">Mythic — Capped at 75 Mints</span>
-                <h3>5. Sylvan Primordial</h3>
-                <p>Burn <strong>2x Thornheart Wardens</strong> to achieve the supreme form of nature's dominance.</p>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 Botanica Mystica (Botanica TCG). Powered by WAX, AtomicHub & MintyBlocks.</p>
-        <p style="margin-top: 10px;">
-            <a href="https://wax.atomichub.io/explorer/collection/wax-mainnet/botanicacard" target="_blank" style="color: var(--text-sub); margin-right: 15px;">AtomicHub Collection</a>
-            <a href="https://wax.mintyblocks.com/mintyblocks/blends" target="_blank" style="color: var(--text-sub);">MintyBlocks Blends</a>
-        </p>
-    </footer>
-
-</body>
-</html>
+                Gather raw seeds on secondary market drops or burn your plant
