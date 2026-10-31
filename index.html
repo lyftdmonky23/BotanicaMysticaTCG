@@ -12,6 +12,7 @@
             --accent-gold: #f1c40f;
             --text-main: #e0e6e3;
             --text-sub: #a0b2a6;
+            --border-color: #2d3e36;
         }
 
         body {
@@ -44,6 +45,14 @@
             margin: 0 auto 1.5rem auto;
         }
 
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
         .cta-btn {
             display: inline-block;
             background-color: var(--accent-green);
@@ -52,14 +61,25 @@
             font-weight: bold;
             border-radius: 25px;
             text-decoration: none;
-            transition: transform 0.2s, background-color 0.2s;
-            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
             border: none;
         }
 
         .cta-btn:hover {
             background-color: #27ae60;
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+        }
+
+        .cta-btn.secondary {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--accent-green);
+        }
+
+        .cta-btn.secondary:hover {
+            background-color: var(--accent-green);
+            color: #000;
         }
 
         .container {
@@ -77,14 +97,14 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 2rem;
             justify-content: center;
         }
 
         .card {
             background-color: var(--card-bg);
-            border: 1px solid #2d3e36;
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 1.2rem;
             text-align: center;
@@ -101,7 +121,7 @@
 
         .card img {
             width: 100%;
-            max-width: 250px;
+            max-width: 230px;
             height: auto;
             border-radius: 8px;
             margin-bottom: 1rem;
@@ -124,12 +144,12 @@
             font-weight: bold;
         }
 
-        .wallet-section {
+        .action-box {
             background-color: var(--card-bg);
             border: 1px solid var(--accent-green);
             border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
             text-align: center;
         }
 
@@ -148,24 +168,24 @@
     <header>
         <h1>Botanica Mystica</h1>
         <p class="tagline">An evolution-driven NFT trading card game built on the WAX blockchain.</p>
-        <button id="wallet-btn" onclick="connectWallet()" class="cta-btn">Connect WAX Wallet</button>
-        <p id="wallet-status" style="margin-top: 10px; color: var(--text-sub);"></p>
+        
+        <div class="btn-group">
+            <a href="https://wax.atomichub.io/explorer/collection/wax-mainnet/botanicacard" target="_blank" class="cta-btn">View Collection on AtomicHub ↗</a>
+            <a href="https://wax.mintyblocks.com/mintyblocks/blends" target="_blank" class="cta-btn secondary">Enter MintyBlocks Blends ↗</a>
+        </div>
     </header>
 
     <div class="container">
         
-        <!-- Wallet & Mint Controls -->
-        <div class="wallet-section">
-            <h3 style="color: var(--accent-gold); margin-top: 0;">Direct Mint — Base Seed</h3>
-            <p>Purchase Mythical Seeds directly or visit Mintyblocks for full secondary trading.</p>
-            <div style="margin: 1rem 0;">
-                <label for="seed-qty" style="margin-right: 10px;">Quantity:</label>
-                <input type="number" id="seed-qty" value="1" min="1" max="100" style="padding: 0.5rem; width: 60px; border-radius: 5px; border: 1px solid #2d3e36; background: #0f1412; color: #fff; text-align: center;">
-                <span style="margin-left: 15px;">Total: <strong id="total-cost" style="color: var(--accent-gold);">0.25</strong> WAX</span>
-            </div>
-            <button onclick="executePurchase()" class="cta-btn" style="background-color: var(--accent-gold); color: #000;">Buy Seed(s)</button>
-            <div style="margin-top: 15px;">
-                <a href="https://mintyblocks.com" target="_blank" style="color: var(--accent-green); text-decoration: underline;">View Collection on Mintyblocks ↗</a>
+        <!-- Marketplace & Blending Action Hub -->
+        <div class="action-box">
+            <h3 style="color: var(--accent-gold); margin-top: 0; font-size: 1.5rem;">Collect, Burn & Evolve</h3>
+            <p style="color: var(--text-sub); max-width: 700px; margin: 0 auto 1.5rem auto;">
+                Acquire Whispering Seeds on AtomicHub or burn lower-tier flora on MintyBlocks to cultivate rare protectors and reach the apex Sylvan Primordial.
+            </p>
+            <div class="btn-group">
+                <a href="https://wax.atomichub.io/explorer/collection/wax-mainnet/botanicacard" target="_blank" class="cta-btn" style="background-color: var(--accent-gold); color: #000;">Trade on AtomicHub ↗</a>
+                <a href="https://wax.mintyblocks.com/mintyblocks/blends" target="_blank" class="cta-btn">Blend on MintyBlocks ↗</a>
             </div>
         </div>
 
@@ -174,10 +194,10 @@
         <div class="grid">
             <!-- Tier 1: Base -->
             <div class="card">
-                <img src="base mythical seed.jpg" alt="The Mythical Seed">
+                <img src="base mythical seed.jpg" alt="Whispering Seed (Base)">
                 <span class="badge">Base Tier — 0.25 WAX</span>
-                <h3>1. The Mythical Seed</h3>
-                <p>The foundational spark of all botanical life. Purchase direct to start your journey into the grove.</p>
+                <h3>1. Whispering Seed</h3>
+                <p>The foundational spark of all botanical life. Acquire direct to start your journey into the grove.</p>
             </div>
 
             <!-- Tier 2: Common -->
@@ -185,7 +205,7 @@
                 <img src="common whispering sprout.jpg" alt="Whispering Sprout">
                 <span class="badge">Common — Blend Recipe</span>
                 <h3>2. Whispering Sprout</h3>
-                <p>Burn <strong>10x Mythical Seeds</strong> to unlock this initial sprout of mystical energy.</p>
+                <p>Burn <strong>10x Whispering Seeds</strong> to unlock this initial sprout of mystical energy.</p>
             </div>
 
             <!-- Tier 3: Uncommon -->
@@ -215,87 +235,12 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 Botanica Mystica (Botanica TCG). Powered by WAX & Mintyblocks.</p>
+        <p>&copy; 2026 Botanica Mystica (Botanica TCG). Powered by WAX, AtomicHub & MintyBlocks.</p>
+        <p style="margin-top: 10px;">
+            <a href="https://wax.atomichub.io/explorer/collection/wax-mainnet/botanicacard" target="_blank" style="color: var(--text-sub); margin-right: 15px;">AtomicHub Collection</a>
+            <a href="https://wax.mintyblocks.com/mintyblocks/blends" target="_blank" style="color: var(--text-sub);">MintyBlocks Blends</a>
+        </p>
     </footer>
 
-    <!-- Load WaxJS library -->
-    <script src="https://unpkg.com/@waxio/waxjs@1.3.0/dist-web/waxjs.js"></script>
-    <script>
-        const rpcNodes = [
-            'https://wax.greymass.com',
-            'https://api.waxsweden.org',
-            'https://wax.eosphere.io'
-        ];
-
-        let currentRpcIndex = 0;
-        let wax = new waxjs.WaxJS({
-            rpcEndpoint: rpcNodes[currentRpcIndex],
-            tryAutoLogin: false
-        });
-
-        let currentAccount = null;
-
-        async function connectWallet() {
-            const walletBtn = document.getElementById('wallet-btn');
-            const statusText = document.getElementById('wallet-status');
-
-            walletBtn.innerText = "Connecting...";
-
-            try {
-                currentAccount = await wax.login();
-                walletBtn.innerText = "Wallet Connected";
-                walletBtn.style.backgroundColor = "#27ae60";
-                statusText.innerHTML = `Connected: <strong style="color: #f1c40f;">${currentAccount}</strong>`;
-            } catch (error) {
-                console.error("Wallet login error:", error);
-                statusText.innerHTML = `<span style="color:#e74c3c;">Connection error (${error.message || 'Node Timeout'}). Try again.</span>`;
-                walletBtn.innerText = "Connect WAX Wallet";
-            }
-        }
-
-        async function executePurchase() {
-            const qty = parseInt(document.getElementById('seed-qty').value) || 1;
-            const totalAmount = (qty * 0.25).toFixed(8);
-
-            if (!currentAccount) {
-                alert("Please connect your WAX Wallet first!");
-                await connectWallet();
-                if (!currentAccount) return;
-            }
-
-            try {
-                const result = await wax.api.transact({
-                    actions: [{
-                        account: 'eosio.token',
-                        name: 'transfer',
-                        authorization: [{
-                            actor: currentAccount,
-                            permission: 'active',
-                        }],
-                        data: {
-                            from: currentAccount,
-                            to: 'botanicadesg', 
-                            quantity: `${totalAmount} WAX`,
-                            memo: 'Purchase Mythical Seeds',
-                        },
-                    }]
-                }, {
-                    blocksBehind: 3,
-                    expireSeconds: 30,
-                });
-
-                alert(`Success! Purchased ${qty} Mythical Seed(s)!\nTx ID: ${result.transaction_id}`);
-            } catch (e) {
-                console.error("Transaction failed:", e);
-                alert("Transaction canceled or failed: " + e.message);
-            }
-        }
-
-        document.getElementById('seed-qty').addEventListener('input', function(e) {
-            let val = parseInt(e.target.value);
-            if (isNaN(val) || val < 1) val = 1;
-            document.getElementById('total-cost').innerText = (val * 0.25).toFixed(2);
-        });
-    </script>
 </body>
 </html>
