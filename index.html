@@ -26,9 +26,21 @@
 
         header {
             text-align: center;
-            padding: 3rem 1rem;
+            padding: 2rem 1rem 3rem 1rem;
             background: linear-gradient(180deg, #141e18 0%, var(--bg-color) 100%);
             border-bottom: 2px solid var(--accent-green);
+        }
+
+        /* Top Collection Banner */
+        .collection-cover {
+            width: 100%;
+            max-width: 900px;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
         }
 
         h1 {
@@ -103,6 +115,43 @@
             text-align: center;
         }
 
+        /* Top Visual Evolution Chain Above Text */
+        .visual-evolution-strip {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 1rem 0 2rem 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .strip-card {
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .strip-card img {
+            width: 140px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s;
+        }
+
+        .strip-card img:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-green);
+        }
+
+        .strip-arrow {
+            color: var(--accent-gold);
+            font-size: 1.8rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
         /* Evolution Cycle Overview Styling */
         .evolution-flow {
             background-color: var(--card-bg);
@@ -132,106 +181,4 @@
             font-weight: bold;
             border-radius: 50%;
             min-width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .step-num.mythic {
-            background-color: #e74c3c;
-            color: #fff;
-        }
-
-        .step-content h4 {
-            margin: 0 0 0.3rem 0;
-            color: var(--accent-gold);
-            font-size: 1.2rem;
-        }
-
-        .step-content p {
-            margin: 0;
-            color: var(--text-sub);
-        }
-
-        /* Card Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            justify-content: center;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.2rem;
-            text-align: center;
-            transition: transform 0.3s, border-color 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .card:hover {
-            border-color: var(--accent-green);
-            transform: translateY(-5px);
-        }
-
-        .card img {
-            width: 100%;
-            max-width: 230px;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        .card h3 {
-            color: var(--accent-green);
-            margin: 0.5rem 0;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            font-size: 0.85rem;
-            border-radius: 12px;
-            background-color: #27382f;
-            color: var(--accent-gold);
-            margin-bottom: 0.8rem;
-            font-weight: bold;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-sub);
-            font-size: 0.9rem;
-            border-top: 1px solid #1a231f;
-            margin-top: 3rem;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>Botanica Mystica</h1>
-        <p class="tagline">An evolution-driven burn-to-mint NFT trading card game built on the WAX blockchain.</p>
-        
-        <div class="btn-group">
-            <a href="https://wax.atomichub.io/explorer/collection/wax-mainnet/botanicacard" target="_blank" class="cta-btn gold">View Collection on AtomicHub ↗</a>
-            <a href="https://wax.mintyblocks.com/mintyblocks/blends" target="_blank" class="cta-btn">Start Blending on MintyBlocks ↗</a>
-        </div>
-    </header>
-
-    <div class="container">
-        
-        <!-- Quick Action Hub -->
-        <div class="action-box">
-            <h3 style="color: var(--accent-gold); margin-top: 0; font-size: 1.5rem;">Enter the Grove</h3>
-            <p style="color: var(--text-sub); max-width: 700px; margin: 0 auto 1.5rem auto;">
-                Gather raw seeds on secondary market drops or burn your plant
+            height
