@@ -4,120 +4,263 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Botanica Mystica TCG | Card Evolution Hierarchy</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bgDark: '#0a110d',
+                        cardBg: '#132219',
+                        accentGreen: '#2e7d32',
+                        accentEmerald: '#00e676',
+                        accentGold: '#ffd700',
+                        textLight: '#e8f5e9',
+                        textMuted: '#a3b899',
+                        borderColor: '#1b4332',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --bg-dark: #0a110d;
-            --card-bg: #132219;
-            --accent-green: #2e7d32;
-            --accent-emerald: #00e676;
-            --accent-gold: #ffd700;
-            --text-light: #e8f5e9;
-            --text-muted: #a3b899;
-            --border-color: #1b4332;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            line-height: 1.6;
+            background-color: #0a110d;
+            color: #e8f5e9;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
 
-        /* Header Navigation */
-        header {
-            background-color: rgba(10, 17, 13, 0.95);
-            border-bottom: 2px solid var(--border-color);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+        /* Glowing text effect for main headers */
+        .gold-glow {
+            text-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
         }
 
-        .logo-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--accent-gold);
-            letter-spacing: 1.5px;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        /* Custom image placeholder state */
+        .img-loading {
+            background: linear-gradient(110deg, #0b150f 8%, #182e22 18%, #0b150f 33%);
+            background-size: 200% 100%;
+            animation: 1.5s shine linear infinite;
         }
 
-        .nav-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
+        @keyframes shine {
+            to {
+                background-position-x: -200%;
+            }
         }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
 
-        .action-btn {
-            background: linear-gradient(135deg, #1b4332, #2e7d32);
-            color: var(--text-light);
-            text-decoration: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            font-weight: bold;
-            border: 1px solid var(--accent-emerald);
-            transition: all 0.3s ease;
-            display: inline-block;
-            text-align: center;
+    <div>
+        <!-- Sticky Navigation Header -->
+        <header class="sticky top-0 z-50 bg-[#0a110d]/95 backdrop-blur-md border-b-2 border-borderColor px-4 sm:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="logo-title text-2xl font-bold tracking-wider text-accentGold gold-glow">
+                BOTANICA MYSTICA
+            </div>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="https://wax.atomichub.io/explorer/collection/wax-mainnet/botanicacard#assets" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="px-4 py-2 rounded-lg font-bold text-sm text-textLight bg-gradient-to-r from-[#1b4332] to-[#2e7d32] border border-accentEmerald transition-all duration-300 hover:bg-accentEmerald hover:text-black hover:shadow-[0_0_15px_#00e676] hover:-translate-y-0.5">
+                    View Assets
+                </a>
+                <a href="https://wax.mintyblocks.com/mintyblocks/drops?collection=botanicacard" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="px-4 py-2 rounded-lg font-bold text-sm text-textLight bg-gradient-to-r from-[#1b4332] to-[#2e7d32] border border-accentEmerald transition-all duration-300 hover:bg-accentEmerald hover:text-black hover:shadow-[0_0_15px_#00e676] hover:-translate-y-0.5">
+                    Mintyblocks Drops
+                </a>
+                <a href="https://wax.mintyblocks.com/mintyblocks/blends?collection=botanicacard" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="px-4 py-2 rounded-lg font-bold text-sm text-textLight bg-gradient-to-r from-[#1b4332] to-[#2e7d32] border border-accentEmerald transition-all duration-300 hover:bg-accentEmerald hover:text-black hover:shadow-[0_0_15px_#00e676] hover:-translate-y-0.5">
+                    Mintyblocks Blends
+                </a>
+            </div>
+        </header>
+
+        <!-- Hero Banner Section -->
+        <section class="text-center py-12 px-4 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#1b4332] via-bgDark to-bgDark border-b border-borderColor">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-accentGold mb-3 gold-glow">
+                Botanica Mystica TCG
+            </h1>
+            <p class="max-w-2xl mx-auto text-textMuted text-base sm:text-lg leading-relaxed">
+                Explore the full evolution tree, gather your botanical ingredients, and blend your assets on the WAX blockchain.
+            </p>
+        </section>
+
+        <!-- Evolution Hierarchy & Blending Flow -->
+        <main class="max-w-4xl mx-auto px-4 py-10">
+            
+            <h2 class="text-2xl sm:text-3xl font-bold text-center text-accentEmerald border-b-2 border-borderColor pb-3 mb-10">
+                Evolution Hierarchy & Blending Recipes
+            </h2>
+
+            <div class="flex flex-col items-center gap-6">
+
+                <!-- Stage 0 -->
+                <div class="w-full bg-cardBg border-2 border-borderColor rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 hover:border-accentGold hover:-translate-y-1 shadow-lg">
+                    <div class="w-48 h-64 sm:w-52 sm:h-72 flex-shrink-0 rounded-xl overflow-hidden border-2 border-borderColor bg-[#050a07] relative img-loading flex items-center justify-center">
+                        <img src="https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/bafkreiecrnt6xfy3pphrvwjjjmkhker3sjyrfwck7z3glvsvaquom3pxga" 
+                             alt="Whispering Seed"
+                             class="w-full h-full object-cover relative z-10"
+                             onload="this.parentElement.classList.remove('img-loading')"
+                             onerror="handleImageError(this, 'bafkreiecrnt6xfy3pphrvwjjjmkhker3sjyrfwck7z3glvsvaquom3pxga')">
+                    </div>
+                    <div class="flex-grow w-full text-center sm:text-left">
+                        <span class="inline-block bg-accentGreen text-accentGold text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+                            Base Stage
+                        </span>
+                        <h3 class="text-2xl font-bold text-accentGold mb-3">Whispering Seed</h3>
+                        <div class="bg-[#0a110d]/80 border-l-4 border-accentEmerald p-4 rounded-r-lg">
+                            <h4 class="text-accentEmerald font-semibold text-sm mb-1">Ingredients / Base Status</h4>
+                            <p class="text-textLight font-medium text-sm">Starting Base Card (Obtainable via Drops & Packs)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Arrow Connector 1 -->
+                <div class="flex flex-col items-center justify-center text-accentGold font-bold text-lg sm:text-xl py-1 gold-glow">
+                    <span class="text-2xl">↓</span>
+                    <span>10x Whispering Seed</span>
+                </div>
+
+                <!-- Stage 1 -->
+                <div class="w-full bg-cardBg border-2 border-borderColor rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 hover:border-accentGold hover:-translate-y-1 shadow-lg">
+                    <div class="w-48 h-64 sm:w-52 sm:h-72 flex-shrink-0 rounded-xl overflow-hidden border-2 border-borderColor bg-[#050a07] relative img-loading flex items-center justify-center">
+                        <img src="https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/bafkreiduweozm7jexzjbymusrnt4p4wozcgq5viy4n6bkrm3ggwfxcpocu" 
+                             alt="Whispering Sprout"
+                             class="w-full h-full object-cover relative z-10"
+                             onload="this.parentElement.classList.remove('img-loading')"
+                             onerror="handleImageError(this, 'bafkreiduweozm7jexzjbymusrnt4p4wozcgq5viy4n6bkrm3ggwfxcpocu')">
+                    </div>
+                    <div class="flex-grow w-full text-center sm:text-left">
+                        <span class="inline-block bg-accentGreen text-accentGold text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+                            Stage 1 Evolution
+                        </span>
+                        <h3 class="text-2xl font-bold text-accentGold mb-3">Whispering Sprout</h3>
+                        <div class="bg-[#0a110d]/80 border-l-4 border-accentEmerald p-4 rounded-r-lg">
+                            <h4 class="text-accentEmerald font-semibold text-sm mb-1">Blend Formula</h4>
+                            <p class="text-textLight font-medium text-sm">Burn <strong class="text-accentEmerald">10 Whispering Seeds</strong> = 1 Whispering Sprout</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Arrow Connector 2 -->
+                <div class="flex flex-col items-center justify-center text-accentGold font-bold text-lg sm:text-xl py-1 gold-glow">
+                    <span class="text-2xl">↓</span>
+                    <span>3x Whispering Sprout</span>
+                </div>
+
+                <!-- Stage 2 -->
+                <div class="w-full bg-cardBg border-2 border-borderColor rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 hover:border-accentGold hover:-translate-y-1 shadow-lg">
+                    <div class="w-48 h-64 sm:w-52 sm:h-72 flex-shrink-0 rounded-xl overflow-hidden border-2 border-borderColor bg-[#050a07] relative img-loading flex items-center justify-center">
+                        <img src="https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/bafkreibtezomtgqc737oc4btkjqidj333biu4kc75k7suy6bcjdhtnfsra" 
+                             alt="Briarweave Flora"
+                             class="w-full h-full object-cover relative z-10"
+                             onload="this.parentElement.classList.remove('img-loading')"
+                             onerror="handleImageError(this, 'bafkreibtezomtgqc737oc4btkjqidj333biu4kc75k7suy6bcjdhtnfsra')">
+                    </div>
+                    <div class="flex-grow w-full text-center sm:text-left">
+                        <span class="inline-block bg-accentGreen text-accentGold text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+                            Stage 2 Evolution
+                        </span>
+                        <h3 class="text-2xl font-bold text-accentGold mb-3">Briarweave Flora</h3>
+                        <div class="bg-[#0a110d]/80 border-l-4 border-accentEmerald p-4 rounded-r-lg">
+                            <h4 class="text-accentEmerald font-semibold text-sm mb-1">Blend Formula</h4>
+                            <p class="text-textLight font-medium text-sm">Burn <strong class="text-accentEmerald">3 Whispering Sprouts</strong> = 1 Briarweave Flora</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Arrow Connector 3 -->
+                <div class="flex flex-col items-center justify-center text-accentGold font-bold text-lg sm:text-xl py-1 gold-glow">
+                    <span class="text-2xl">↓</span>
+                    <span>3x Briarweave Flora</span>
+                </div>
+
+                <!-- Stage 3 -->
+                <div class="w-full bg-cardBg border-2 border-borderColor rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 hover:border-accentGold hover:-translate-y-1 shadow-lg">
+                    <div class="w-48 h-64 sm:w-52 sm:h-72 flex-shrink-0 rounded-xl overflow-hidden border-2 border-borderColor bg-[#050a07] relative img-loading flex items-center justify-center">
+                        <img src="https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/bafkreidrc6guvwmlgy3jb6a7tiwxxex23bzbgrfuaufgqcexxmnkf7o5tu" 
+                             alt="Thornheart Warden"
+                             class="w-full h-full object-cover relative z-10"
+                             onload="this.parentElement.classList.remove('img-loading')"
+                             onerror="handleImageError(this, 'bafkreidrc6guvwmlgy3jb6a7tiwxxex23bzbgrfuaufgqcexxmnkf7o5tu')">
+                    </div>
+                    <div class="flex-grow w-full text-center sm:text-left">
+                        <span class="inline-block bg-accentGreen text-accentGold text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+                            Stage 3 Evolution
+                        </span>
+                        <h3 class="text-2xl font-bold text-accentGold mb-3">Thornheart Warden</h3>
+                        <div class="bg-[#0a110d]/80 border-l-4 border-accentEmerald p-4 rounded-r-lg">
+                            <h4 class="text-accentEmerald font-semibold text-sm mb-1">Blend Formula</h4>
+                            <p class="text-textLight font-medium text-sm">Burn <strong class="text-accentEmerald">3 Briarweave Flora</strong> = 1 Thornheart Warden</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Arrow Connector 4 -->
+                <div class="flex flex-col items-center justify-center text-accentGold font-bold text-lg sm:text-xl py-1 gold-glow">
+                    <span class="text-2xl">↓</span>
+                    <span>3x Thornheart Warden</span>
+                </div>
+
+                <!-- Stage 4 -->
+                <div class="w-full bg-cardBg border-2 border-borderColor rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 hover:border-accentGold hover:-translate-y-1 shadow-lg">
+                    <div class="w-48 h-64 sm:w-52 sm:h-72 flex-shrink-0 rounded-xl overflow-hidden border-2 border-borderColor bg-[#050a07] relative img-loading flex items-center justify-center">
+                        <img src="https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/bafkreibo2upmgukncba62icyph3mesjtswxhjypyqkxst45l47ev6me4pa" 
+                             alt="Sylvan Primordial"
+                             class="w-full h-full object-cover relative z-10"
+                             onload="this.parentElement.classList.remove('img-loading')"
+                             onerror="handleImageError(this, 'bafkreibo2upmgukncba62icyph3mesjtswxhjypyqkxst45l47ev6me4pa')">
+                    </div>
+                    <div class="flex-grow w-full text-center sm:text-left">
+                        <span class="inline-block bg-accentGreen text-accentGold text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+                            Stage 4 Apex Evolution
+                        </span>
+                        <h3 class="text-2xl font-bold text-accentGold mb-3">Sylvan Primordial</h3>
+                        <div class="bg-[#0a110d]/80 border-l-4 border-accentEmerald p-4 rounded-r-lg">
+                            <h4 class="text-accentEmerald font-semibold text-sm mb-1">Blend Formula</h4>
+                            <p class="text-textLight font-medium text-sm">Burn <strong class="text-accentEmerald">3 Thornheart Wardens</strong> = 1 Sylvan Primordial</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 border-t border-borderColor text-textMuted text-sm mt-12 bg-[#050a07]">
+        <p>&copy; 2026 Botanica Mystica TCG. Collection: <code class="text-accentEmerald bg-cardBg px-2 py-0.5 rounded border border-borderColor">botanicacard</code></p>
+    </footer>
+
+    <!-- Robust IPFS Gateway Fallback Script -->
+    <script>
+        function handleImageError(imgElement, cid) {
+            const currentAttempt = imgElement.dataset.attempt || "0";
+            
+            if (currentAttempt === "0") {
+                imgElement.dataset.attempt = "1";
+                // Fallback 1: Direct ipfs.io public gateway
+                imgElement.src = "https://ipfs.io/ipfs/" + cid;
+            } else if (currentAttempt === "1") {
+                imgElement.dataset.attempt = "2";
+                // Fallback 2: Cloudflare IPFS gateway
+                imgElement.src = "https://cloudflare-ipfs.com/ipfs/" + cid;
+            } else if (currentAttempt === "2") {
+                imgElement.dataset.attempt = "3";
+                // Fallback 3: Dweb IPFS gateway
+                imgElement.src = "https://dweb.link/ipfs/" + cid;
+            } else {
+                // If all IPFS gateways fail, display clean placeholder text instead of dark void
+                imgElement.parentElement.classList.remove('img-loading');
+                imgElement.parentElement.innerHTML = `<div class="p-4 text-center text-xs text-textMuted font-bold">Image Unavailable<br>(${imgElement.alt})</div>`;
+            }
         }
-
-        .action-btn:hover {
-            background: var(--accent-emerald);
-            color: #000;
-            box-shadow: 0 0 12px var(--accent-emerald);
-            transform: translateY(-2px);
-        }
-
-        /* Hero Banner */
-        .hero {
-            text-align: center;
-            padding: 3.5rem 1rem;
-            background: radial-gradient(circle at center, #1b4332 0%, var(--bg-dark) 75%);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .hero h1 {
-            font-size: 2.8rem;
-            color: var(--accent-gold);
-            margin-bottom: 0.8rem;
-        }
-
-        .hero p {
-            max-width: 650px;
-            margin: 0 auto;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 2.5rem auto;
-            padding: 0 1rem;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: var(--accent-emerald);
-            text-align: center;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 0.8rem;
-        }
-
-        /* Vertical Hierarchy Flow */
-        .hierarchy-list {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            align-items: center;
+    </script>
+</body>
+</html>
