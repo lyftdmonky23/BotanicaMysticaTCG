@@ -6,224 +6,314 @@
     <title>Botanica Mystica TCG | Card Evolution Hierarchy</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        bgDark: '#0a110d',
-                        cardBg: '#132219',
-                        accentGreen: '#2e7d32',
-                        accentEmerald: '#00e676',
-                        accentGold: '#ffd700',
-                        textLight: '#e8f5e9',
-                        textMuted: '#a3b899',
-                        borderColor: '#1b4332',
-                    }
-                }
-            }
-        }
-    </script>
     <style>
+        :root {
+            --bg-dark: #070d0a;
+            --card-bg: #0f1c14;
+            --accent-green: #2e7d32;
+            --accent-emerald: #00e676;
+            --accent-gold: #ffd700;
+            --border-color: #1b4332;
+        }
+
         body {
-            background-color: #0a110d;
+            background-color: var(--bg-dark);
             color: #e8f5e9;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
 
         /* Glowing text effect for main headers */
         .gold-glow {
-            text-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
+            text-shadow: 0 0 14px rgba(255, 215, 0, 0.4);
         }
 
-        /* Custom image placeholder state */
-        .img-loading {
-            background: linear-gradient(110deg, #0b150f 8%, #182e22 18%, #0b150f 33%);
-            background-size: 200% 100%;
-            animation: 1.5s shine linear infinite;
+        .emerald-glow {
+            text-shadow: 0 0 12px rgba(0, 230, 118, 0.4);
         }
 
-        @keyframes shine {
-            to {
-                background-position-x: -200%;
-            }
+        /* Card container hover frame */
+        .card-frame {
+            background: linear-gradient(145deg, #122419 0%, #0a140e 100%);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col justify-between selection:bg-[#00e676] selection:text-black">
 
     <div>
         <!-- Sticky Navigation Header -->
-        <header class="sticky top-0 z-50 bg-[#0a110d]/95 backdrop-blur-md border-b-2 border-borderColor px-4 sm:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div class="logo-title text-2xl font-bold tracking-wider text-accentGold gold-glow">
+        <header class="sticky top-0 z-50 bg-[#070d0a]/95 backdrop-blur-md border-b-2 border-[#1b4332] px-4 sm:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="logo-title text-2xl font-black tracking-widest text-[#ffd700] gold-glow flex items-center gap-2">
+                <svg class="w-7 h-7 text-[#00e676]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                </svg>
                 BOTANICA MYSTICA
             </div>
-            <div class="flex flex-wrap justify-center gap-3">
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-3">
                 <a href="https://wax.atomichub.io/explorer/collection/wax-mainnet/botanicacard#assets" 
                    target="_blank" 
                    rel="noopener noreferrer" 
-                   class="px-4 py-2 rounded-lg font-bold text-sm text-textLight bg-gradient-to-r from-[#1b4332] to-[#2e7d32] border border-accentEmerald transition-all duration-300 hover:bg-accentEmerald hover:text-black hover:shadow-[0_0_15px_#00e676] hover:-translate-y-0.5">
-                    View Assets
+                   class="px-4 py-2 rounded-xl font-bold text-xs sm:text-sm text-[#e8f5e9] bg-gradient-to-r from-[#1b4332] to-[#2e7d32] border border-[#00e676] transition-all duration-300 hover:bg-[#00e676] hover:text-black hover:shadow-[0_0_15px_#00e676] hover:-translate-y-0.5">
+                    View Assets ↗
                 </a>
                 <a href="https://wax.mintyblocks.com/mintyblocks/drops?collection=botanicacard" 
                    target="_blank" 
                    rel="noopener noreferrer" 
-                   class="px-4 py-2 rounded-lg font-bold text-sm text-textLight bg-gradient-to-r from-[#1b4332] to-[#2e7d32] border border-accentEmerald transition-all duration-300 hover:bg-accentEmerald hover:text-black hover:shadow-[0_0_15px_#00e676] hover:-translate-y-0.5">
-                    Mintyblocks Drops
+                   class="px-4 py-2 rounded-xl font-bold text-xs sm:text-sm text-[#e8f5e9] bg-gradient-to-r from-[#1b4332] to-[#2e7d32] border border-[#00e676] transition-all duration-300 hover:bg-[#00e676] hover:text-black hover:shadow-[0_0_15px_#00e676] hover:-translate-y-0.5">
+                    Mintyblocks Drops ↗
                 </a>
                 <a href="https://wax.mintyblocks.com/mintyblocks/blends?collection=botanicacard" 
                    target="_blank" 
                    rel="noopener noreferrer" 
-                   class="px-4 py-2 rounded-lg font-bold text-sm text-textLight bg-gradient-to-r from-[#1b4332] to-[#2e7d32] border border-accentEmerald transition-all duration-300 hover:bg-accentEmerald hover:text-black hover:shadow-[0_0_15px_#00e676] hover:-translate-y-0.5">
-                    Mintyblocks Blends
+                   class="px-4 py-2 rounded-xl font-bold text-xs sm:text-sm text-[#e8f5e9] bg-gradient-to-r from-[#1b4332] to-[#2e7d32] border border-[#00e676] transition-all duration-300 hover:bg-[#00e676] hover:text-black hover:shadow-[0_0_15px_#00e676] hover:-translate-y-0.5">
+                    Mintyblocks Blends ↗
                 </a>
             </div>
         </header>
 
         <!-- Hero Banner Section -->
-        <section class="text-center py-12 px-4 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#1b4332] via-bgDark to-bgDark border-b border-borderColor">
-            <h1 class="text-4xl sm:text-5xl font-extrabold text-accentGold mb-3 gold-glow">
-                Botanica Mystica TCG
+        <section class="text-center py-12 px-4 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#1b4332]/60 via-[#070d0a] to-[#070d0a] border-b border-[#1b4332]">
+            <span class="inline-block px-3 py-1 bg-[#1b4332] text-[#00e676] rounded-full text-xs font-bold uppercase tracking-widest mb-3 border border-[#00e676]/30">
+                WAX Blockchain TCG
+            </span>
+            <h1 class="text-4xl sm:text-5xl font-black text-[#ffd700] mb-3 gold-glow tracking-tight">
+                Botanica Mystica Evolution
             </h1>
-            <p class="max-w-2xl mx-auto text-textMuted text-base sm:text-lg leading-relaxed">
-                Explore the full evolution tree, gather your botanical ingredients, and blend your assets on the WAX blockchain.
+            <p class="max-w-2xl mx-auto text-[#a3b899] text-base sm:text-lg leading-relaxed">
+                Harness primordial plant magic. Cultivate base seeds, burn ingredients through blends, and evolve your deck to Apex Primordials.
             </p>
         </section>
 
-        <!-- Evolution Hierarchy & Blending Flow -->
+        <!-- Burn Calculator Tool -->
+        <section class="max-w-4xl mx-auto px-4 mt-8">
+            <div class="bg-[#0f1c14] border-2 border-[#1b4332] rounded-2xl p-5 sm:p-6 shadow-xl">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-[#1b4332] pb-4 mb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-[#ffd700] flex items-center gap-2">
+                            <span>🔥</span> Quick Evolution Calculator
+                        </h3>
+                        <p class="text-xs text-[#a3b899]">Enter your Whispering Seeds count to see what you can craft.</p>
+                    </div>
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
+                        <label for="seedInput" class="text-xs font-bold text-[#00e676] uppercase">Seeds Owned:</label>
+                        <input type="number" id="seedInput" value="10" min="0" oninput="calculateEvolution()" 
+                               class="bg-[#070d0a] border-2 border-[#00e676] text-[#ffd700] text-lg font-bold rounded-xl px-3 py-1 w-24 text-center focus:outline-none focus:ring-2 focus:ring-[#ffd700]">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                    <div class="bg-[#070d0a]/80 p-3 rounded-xl border border-[#1b4332]">
+                        <div class="text-xs text-[#a3b899]">Whispering Sprout</div>
+                        <div id="sproutYield" class="text-xl font-bold text-[#00e676]">1</div>
+                    </div>
+                    <div class="bg-[#070d0a]/80 p-3 rounded-xl border border-[#1b4332]">
+                        <div class="text-xs text-[#a3b899]">Briarweave Flora</div>
+                        <div id="floraYield" class="text-xl font-bold text-[#00e676]">0</div>
+                    </div>
+                    <div class="bg-[#070d0a]/80 p-3 rounded-xl border border-[#1b4332]">
+                        <div class="text-xs text-[#a3b899]">Thornheart Warden</div>
+                        <div id="wardenYield" class="text-xl font-bold text-[#00e676]">0</div>
+                    </div>
+                    <div class="bg-[#070d0a]/80 p-3 rounded-xl border border-[#1b4332]">
+                        <div class="text-xs text-[#a3b899]">Sylvan Primordial</div>
+                        <div id="primordialYield" class="text-xl font-bold text-[#ffd700]">0</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Evolution Hierarchy Cards Flow -->
         <main class="max-w-4xl mx-auto px-4 py-10">
             
-            <h2 class="text-2xl sm:text-3xl font-bold text-center text-accentEmerald border-b-2 border-borderColor pb-3 mb-10">
-                Evolution Hierarchy & Blending Recipes
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-center text-[#00e676] border-b-2 border-[#1b4332] pb-3 mb-10 emerald-glow">
+                Card Evolution Hierarchy & Burn Recipes
             </h2>
 
             <div class="flex flex-col items-center gap-6">
 
-                <!-- Stage 0 -->
-                <div class="w-full bg-cardBg border-2 border-borderColor rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 hover:border-accentGold hover:-translate-y-1 shadow-lg">
-                    <div class="w-48 h-64 sm:w-52 sm:h-72 flex-shrink-0 rounded-xl overflow-hidden border-2 border-borderColor bg-[#050a07] relative img-loading flex items-center justify-center">
+                <!-- Stage 0: Whispering Seed -->
+                <div class="w-full card-frame border-2 border-[#1b4332] rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 hover:border-[#ffd700] hover:-translate-y-1">
+                    <div class="w-48 h-64 sm:w-52 sm:h-72 flex-shrink-0 rounded-xl overflow-hidden border-2 border-[#1b4332] bg-[#050a07] relative flex items-center justify-center group shadow-md">
+                        <!-- Embedded High Quality Vector Artwork -->
+                        <svg class="w-full h-full p-6 text-[#00e676] bg-gradient-to-b from-[#0e2417] to-[#050a07]" viewBox="0 0 100 140" fill="none" stroke="currentColor">
+                            <rect width="100" height="140" rx="8" fill="#0b1710"/>
+                            <circle cx="50" cy="70" r="28" fill="#142c1f" stroke="#2e7d32" stroke-width="2"/>
+                            <!-- Seed Vector -->
+                            <path d="M50 45 C35 65 35 85 50 95 C65 85 65 65 50 45 Z" fill="#2e7d32" stroke="#ffd700" stroke-width="2"/>
+                            <path d="M50 55 C43 68 43 80 50 88" stroke="#00e676" stroke-width="1.5" stroke-linecap="round"/>
+                            <circle cx="50" cy="70" r="3" fill="#ffd700"/>
+                            <text x="50" y="122" font-size="8" fill="#ffd700" font-weight="bold" text-anchor="middle">STAGE 0 • BASE</text>
+                        </svg>
+                        <!-- IPFS Image Overlay -->
                         <img src="https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/bafkreiecrnt6xfy3pphrvwjjjmkhker3sjyrfwck7z3glvsvaquom3pxga" 
                              alt="Whispering Seed"
-                             class="w-full h-full object-cover relative z-10"
-                             onload="this.parentElement.classList.remove('img-loading')"
+                             class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 transition-opacity duration-500"
+                             onload="this.classList.remove('opacity-0')"
                              onerror="handleImageError(this, 'bafkreiecrnt6xfy3pphrvwjjjmkhker3sjyrfwck7z3glvsvaquom3pxga')">
                     </div>
                     <div class="flex-grow w-full text-center sm:text-left">
-                        <span class="inline-block bg-accentGreen text-accentGold text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
-                            Base Stage
+                        <span class="inline-block bg-[#2e7d32] text-[#ffd700] text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-[#ffd700]/30">
+                            Base Stage Card
                         </span>
-                        <h3 class="text-2xl font-bold text-accentGold mb-3">Whispering Seed</h3>
-                        <div class="bg-[#0a110d]/80 border-l-4 border-accentEmerald p-4 rounded-r-lg">
-                            <h4 class="text-accentEmerald font-semibold text-sm mb-1">Ingredients / Base Status</h4>
-                            <p class="text-textLight font-medium text-sm">Starting Base Card (Obtainable via Drops & Packs)</p>
+                        <h3 class="text-2xl sm:text-3xl font-black text-[#ffd700] mb-2">Whispering Seed</h3>
+                        <p class="text-[#a3b899] text-sm mb-4">The elemental origin of all plant entities. Contains latent ancient spells ready to sprout.</p>
+                        <div class="bg-[#070d0a]/80 border-l-4 border-[#00e676] p-4 rounded-r-xl">
+                            <h4 class="text-[#00e676] font-bold text-xs uppercase tracking-wider mb-1">Acquisition Method</h4>
+                            <p class="text-[#e8f5e9] font-medium text-sm">Obtainable via WAX Drops, Booster Packs, or Secondary Markets.</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Arrow Connector 1 -->
-                <div class="flex flex-col items-center justify-center text-accentGold font-bold text-lg sm:text-xl py-1 gold-glow">
+                <div class="flex flex-col items-center justify-center text-[#ffd700] font-black text-sm sm:text-base py-1 gold-glow">
                     <span class="text-2xl">↓</span>
-                    <span>10x Whispering Seed</span>
+                    <span class="bg-[#1b4332] px-3 py-1 rounded-full text-[#00e676] border border-[#00e676]/30 shadow-md">
+                        Burn 10x Whispering Seed
+                    </span>
                 </div>
 
-                <!-- Stage 1 -->
-                <div class="w-full bg-cardBg border-2 border-borderColor rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 hover:border-accentGold hover:-translate-y-1 shadow-lg">
-                    <div class="w-48 h-64 sm:w-52 sm:h-72 flex-shrink-0 rounded-xl overflow-hidden border-2 border-borderColor bg-[#050a07] relative img-loading flex items-center justify-center">
+                <!-- Stage 1: Whispering Sprout -->
+                <div class="w-full card-frame border-2 border-[#1b4332] rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 hover:border-[#ffd700] hover:-translate-y-1">
+                    <div class="w-48 h-64 sm:w-52 sm:h-72 flex-shrink-0 rounded-xl overflow-hidden border-2 border-[#1b4332] bg-[#050a07] relative flex items-center justify-center group shadow-md">
+                        <svg class="w-full h-full p-6 text-[#00e676] bg-gradient-to-b from-[#0e2417] to-[#050a07]" viewBox="0 0 100 140" fill="none" stroke="currentColor">
+                            <rect width="100" height="140" rx="8" fill="#0b1710"/>
+                            <!-- Sprout Vector -->
+                            <path d="M50 100 L50 60" stroke="#2e7d32" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M50 75 C35 60 25 65 30 50 C45 45 50 65 50 75 Z" fill="#00e676" stroke="#ffd700" stroke-width="1.5"/>
+                            <path d="M50 65 C65 50 75 55 70 40 C55 35 50 55 50 65 Z" fill="#2e7d32" stroke="#00e676" stroke-width="1.5"/>
+                            <text x="50" y="122" font-size="8" fill="#ffd700" font-weight="bold" text-anchor="middle">STAGE 1 • SPROUT</text>
+                        </svg>
                         <img src="https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/bafkreiduweozm7jexzjbymusrnt4p4wozcgq5viy4n6bkrm3ggwfxcpocu" 
                              alt="Whispering Sprout"
-                             class="w-full h-full object-cover relative z-10"
-                             onload="this.parentElement.classList.remove('img-loading')"
+                             class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 transition-opacity duration-500"
+                             onload="this.classList.remove('opacity-0')"
                              onerror="handleImageError(this, 'bafkreiduweozm7jexzjbymusrnt4p4wozcgq5viy4n6bkrm3ggwfxcpocu')">
                     </div>
                     <div class="flex-grow w-full text-center sm:text-left">
-                        <span class="inline-block bg-accentGreen text-accentGold text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+                        <span class="inline-block bg-[#2e7d32] text-[#ffd700] text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-[#ffd700]/30">
                             Stage 1 Evolution
                         </span>
-                        <h3 class="text-2xl font-bold text-accentGold mb-3">Whispering Sprout</h3>
-                        <div class="bg-[#0a110d]/80 border-l-4 border-accentEmerald p-4 rounded-r-lg">
-                            <h4 class="text-accentEmerald font-semibold text-sm mb-1">Blend Formula</h4>
-                            <p class="text-textLight font-medium text-sm">Burn <strong class="text-accentEmerald">10 Whispering Seeds</strong> = 1 Whispering Sprout</p>
+                        <h3 class="text-2xl sm:text-3xl font-black text-[#ffd700] mb-2">Whispering Sprout</h3>
+                        <p class="text-[#a3b899] text-sm mb-4">First awakening stage. Root systems begin synthesizing magical essence from soil.</p>
+                        <div class="bg-[#070d0a]/80 border-l-4 border-[#00e676] p-4 rounded-r-xl">
+                            <h4 class="text-[#00e676] font-bold text-xs uppercase tracking-wider mb-1">Blend Requirement</h4>
+                            <p class="text-[#e8f5e9] font-medium text-sm">Burn <strong class="text-[#ffd700]">10 Whispering Seeds</strong> = 1 Whispering Sprout</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Arrow Connector 2 -->
-                <div class="flex flex-col items-center justify-center text-accentGold font-bold text-lg sm:text-xl py-1 gold-glow">
+                <div class="flex flex-col items-center justify-center text-[#ffd700] font-black text-sm sm:text-base py-1 gold-glow">
                     <span class="text-2xl">↓</span>
-                    <span>3x Whispering Sprout</span>
+                    <span class="bg-[#1b4332] px-3 py-1 rounded-full text-[#00e676] border border-[#00e676]/30 shadow-md">
+                        Burn 3x Whispering Sprout
+                    </span>
                 </div>
 
-                <!-- Stage 2 -->
-                <div class="w-full bg-cardBg border-2 border-borderColor rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 hover:border-accentGold hover:-translate-y-1 shadow-lg">
-                    <div class="w-48 h-64 sm:w-52 sm:h-72 flex-shrink-0 rounded-xl overflow-hidden border-2 border-borderColor bg-[#050a07] relative img-loading flex items-center justify-center">
+                <!-- Stage 2: Briarweave Flora -->
+                <div class="w-full card-frame border-2 border-[#1b4332] rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 hover:border-[#ffd700] hover:-translate-y-1">
+                    <div class="w-48 h-64 sm:w-52 sm:h-72 flex-shrink-0 rounded-xl overflow-hidden border-2 border-[#1b4332] bg-[#050a07] relative flex items-center justify-center group shadow-md">
+                        <svg class="w-full h-full p-6 text-[#00e676] bg-gradient-to-b from-[#0e2417] to-[#050a07]" viewBox="0 0 100 140" fill="none" stroke="currentColor">
+                            <rect width="100" height="140" rx="8" fill="#0b1710"/>
+                            <!-- Vine/Briar Vector -->
+                            <path d="M30 100 Q 70 80 40 50 T 70 20" stroke="#2e7d32" stroke-width="4" fill="none"/>
+                            <polygon points="40,45 35,55 45,55" fill="#ffd700"/>
+                            <polygon points="60,30 55,40 65,40" fill="#ffd700"/>
+                            <circle cx="70" cy="20" r="8" fill="#00e676" stroke="#ffd700" stroke-width="1.5"/>
+                            <text x="50" y="122" font-size="8" fill="#ffd700" font-weight="bold" text-anchor="middle">STAGE 2 • FLORA</text>
+                        </svg>
                         <img src="https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/bafkreibtezomtgqc737oc4btkjqidj333biu4kc75k7suy6bcjdhtnfsra" 
                              alt="Briarweave Flora"
-                             class="w-full h-full object-cover relative z-10"
-                             onload="this.parentElement.classList.remove('img-loading')"
+                             class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 transition-opacity duration-500"
+                             onload="this.classList.remove('opacity-0')"
                              onerror="handleImageError(this, 'bafkreibtezomtgqc737oc4btkjqidj333biu4kc75k7suy6bcjdhtnfsra')">
                     </div>
                     <div class="flex-grow w-full text-center sm:text-left">
-                        <span class="inline-block bg-accentGreen text-accentGold text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+                        <span class="inline-block bg-[#2e7d32] text-[#ffd700] text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-[#ffd700]/30">
                             Stage 2 Evolution
                         </span>
-                        <h3 class="text-2xl font-bold text-accentGold mb-3">Briarweave Flora</h3>
-                        <div class="bg-[#0a110d]/80 border-l-4 border-accentEmerald p-4 rounded-r-lg">
-                            <h4 class="text-accentEmerald font-semibold text-sm mb-1">Blend Formula</h4>
-                            <p class="text-textLight font-medium text-sm">Burn <strong class="text-accentEmerald">3 Whispering Sprouts</strong> = 1 Briarweave Flora</p>
+                        <h3 class="text-2xl sm:text-3xl font-black text-[#ffd700] mb-2">Briarweave Flora</h3>
+                        <p class="text-[#a3b899] text-sm mb-4">Woven thorns and toxic sap form a defensive barrier capable of controlling the battlefield.</p>
+                        <div class="bg-[#070d0a]/80 border-l-4 border-[#00e676] p-4 rounded-r-xl">
+                            <h4 class="text-[#00e676] font-bold text-xs uppercase tracking-wider mb-1">Blend Requirement</h4>
+                            <p class="text-[#e8f5e9] font-medium text-sm">Burn <strong class="text-[#ffd700]">3 Whispering Sprouts</strong> = 1 Briarweave Flora</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Arrow Connector 3 -->
-                <div class="flex flex-col items-center justify-center text-accentGold font-bold text-lg sm:text-xl py-1 gold-glow">
+                <div class="flex flex-col items-center justify-center text-[#ffd700] font-black text-sm sm:text-base py-1 gold-glow">
                     <span class="text-2xl">↓</span>
-                    <span>3x Briarweave Flora</span>
+                    <span class="bg-[#1b4332] px-3 py-1 rounded-full text-[#00e676] border border-[#00e676]/30 shadow-md">
+                        Burn 3x Briarweave Flora
+                    </span>
                 </div>
 
-                <!-- Stage 3 -->
-                <div class="w-full bg-cardBg border-2 border-borderColor rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 hover:border-accentGold hover:-translate-y-1 shadow-lg">
-                    <div class="w-48 h-64 sm:w-52 sm:h-72 flex-shrink-0 rounded-xl overflow-hidden border-2 border-borderColor bg-[#050a07] relative img-loading flex items-center justify-center">
+                <!-- Stage 3: Thornheart Warden -->
+                <div class="w-full card-frame border-2 border-[#1b4332] rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 hover:border-[#ffd700] hover:-translate-y-1">
+                    <div class="w-48 h-64 sm:w-52 sm:h-72 flex-shrink-0 rounded-xl overflow-hidden border-2 border-[#1b4332] bg-[#050a07] relative flex items-center justify-center group shadow-md">
+                        <svg class="w-full h-full p-6 text-[#00e676] bg-gradient-to-b from-[#0e2417] to-[#050a07]" viewBox="0 0 100 140" fill="none" stroke="currentColor">
+                            <rect width="100" height="140" rx="8" fill="#0b1710"/>
+                            <!-- Shield Guardian Vector -->
+                            <path d="M50 30 L80 45 V75 C80 95 50 110 50 110 C50 110 20 95 20 75 V45 L50 30 Z" fill="#1b4332" stroke="#ffd700" stroke-width="2"/>
+                            <path d="M50 45 L50 95 M30 70 L70 70" stroke="#00e676" stroke-width="2"/>
+                            <circle cx="50" cy="70" r="6" fill="#ffd700"/>
+                            <text x="50" y="122" font-size="8" fill="#ffd700" font-weight="bold" text-anchor="middle">STAGE 3 • WARDEN</text>
+                        </svg>
                         <img src="https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/bafkreidrc6guvwmlgy3jb6a7tiwxxex23bzbgrfuaufgqcexxmnkf7o5tu" 
                              alt="Thornheart Warden"
-                             class="w-full h-full object-cover relative z-10"
-                             onload="this.parentElement.classList.remove('img-loading')"
+                             class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 transition-opacity duration-500"
+                             onload="this.classList.remove('opacity-0')"
                              onerror="handleImageError(this, 'bafkreidrc6guvwmlgy3jb6a7tiwxxex23bzbgrfuaufgqcexxmnkf7o5tu')">
                     </div>
                     <div class="flex-grow w-full text-center sm:text-left">
-                        <span class="inline-block bg-accentGreen text-accentGold text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+                        <span class="inline-block bg-[#2e7d32] text-[#ffd700] text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-[#ffd700]/30">
                             Stage 3 Evolution
                         </span>
-                        <h3 class="text-2xl font-bold text-accentGold mb-3">Thornheart Warden</h3>
-                        <div class="bg-[#0a110d]/80 border-l-4 border-accentEmerald p-4 rounded-r-lg">
-                            <h4 class="text-accentEmerald font-semibold text-sm mb-1">Blend Formula</h4>
-                            <p class="text-textLight font-medium text-sm">Burn <strong class="text-accentEmerald">3 Briarweave Flora</strong> = 1 Thornheart Warden</p>
+                        <h3 class="text-2xl sm:text-3xl font-black text-[#ffd700] mb-2">Thornheart Warden</h3>
+                        <p class="text-[#a3b899] text-sm mb-4">Ancient bark armor and razor thorns safeguard the realm against dark corruption.</p>
+                        <div class="bg-[#070d0a]/80 border-l-4 border-[#00e676] p-4 rounded-r-xl">
+                            <h4 class="text-[#00e676] font-bold text-xs uppercase tracking-wider mb-1">Blend Requirement</h4>
+                            <p class="text-[#e8f5e9] font-medium text-sm">Burn <strong class="text-[#ffd700]">3 Briarweave Flora</strong> = 1 Thornheart Warden</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Arrow Connector 4 -->
-                <div class="flex flex-col items-center justify-center text-accentGold font-bold text-lg sm:text-xl py-1 gold-glow">
+                <div class="flex flex-col items-center justify-center text-[#ffd700] font-black text-sm sm:text-base py-1 gold-glow">
                     <span class="text-2xl">↓</span>
-                    <span>3x Thornheart Warden</span>
+                    <span class="bg-[#1b4332] px-3 py-1 rounded-full text-[#00e676] border border-[#00e676]/30 shadow-md">
+                        Burn 3x Thornheart Warden
+                    </span>
                 </div>
 
-                <!-- Stage 4 -->
-                <div class="w-full bg-cardBg border-2 border-borderColor rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 hover:border-accentGold hover:-translate-y-1 shadow-lg">
-                    <div class="w-48 h-64 sm:w-52 sm:h-72 flex-shrink-0 rounded-xl overflow-hidden border-2 border-borderColor bg-[#050a07] relative img-loading flex items-center justify-center">
+                <!-- Stage 4: Sylvan Primordial -->
+                <div class="w-full card-frame border-2 border-[#ffd700] rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 hover:shadow-[0_0_25px_rgba(255,215,0,0.3)] hover:-translate-y-1">
+                    <div class="w-48 h-64 sm:w-52 sm:h-72 flex-shrink-0 rounded-xl overflow-hidden border-2 border-[#ffd700] bg-[#050a07] relative flex items-center justify-center group shadow-md">
+                        <svg class="w-full h-full p-6 text-[#ffd700] bg-gradient-to-b from-[#2e7d32]/40 to-[#050a07]" viewBox="0 0 100 140" fill="none" stroke="currentColor">
+                            <rect width="100" height="140" rx="8" fill="#0b1710"/>
+                            <!-- Crown / Apex Primordial Vector -->
+                            <path d="M20 90 L35 40 L50 65 L65 40 L80 90 Z" fill="#ffd700" stroke="#00e676" stroke-width="1.5"/>
+                            <circle cx="50" cy="30" r="7" fill="#00e676" stroke="#ffd700" stroke-width="2"/>
+                            <circle cx="25" cy="40" r="4" fill="#00e676"/>
+                            <circle cx="75" cy="40" r="4" fill="#00e676"/>
+                            <text x="50" y="122" font-size="8" fill="#ffd700" font-weight="bold" text-anchor="middle">STAGE 4 • APEX</text>
+                        </svg>
                         <img src="https://silver-regulatory-giraffe-176.mypinata.cloud/ipfs/bafkreibo2upmgukncba62icyph3mesjtswxhjypyqkxst45l47ev6me4pa" 
                              alt="Sylvan Primordial"
-                             class="w-full h-full object-cover relative z-10"
-                             onload="this.parentElement.classList.remove('img-loading')"
+                             class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 transition-opacity duration-500"
+                             onload="this.classList.remove('opacity-0')"
                              onerror="handleImageError(this, 'bafkreibo2upmgukncba62icyph3mesjtswxhjypyqkxst45l47ev6me4pa')">
                     </div>
                     <div class="flex-grow w-full text-center sm:text-left">
-                        <span class="inline-block bg-accentGreen text-accentGold text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
-                            Stage 4 Apex Evolution
+                        <span class="inline-block bg-[#ffd700] text-black text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+                            Apex Final Stage
                         </span>
-                        <h3 class="text-2xl font-bold text-accentGold mb-3">Sylvan Primordial</h3>
-                        <div class="bg-[#0a110d]/80 border-l-4 border-accentEmerald p-4 rounded-r-lg">
-                            <h4 class="text-accentEmerald font-semibold text-sm mb-1">Blend Formula</h4>
-                            <p class="text-textLight font-medium text-sm">Burn <strong class="text-accentEmerald">3 Thornheart Wardens</strong> = 1 Sylvan Primordial</p>
+                        <h3 class="text-2xl sm:text-3xl font-black text-[#ffd700] mb-2 gold-glow">Sylvan Primordial</h3>
+                        <p class="text-[#a3b899] text-sm mb-4">The supreme ruler of Botanica Mystica. Commands full control over nature and magical elements.</p>
+                        <div class="bg-[#070d0a]/80 border-l-4 border-[#ffd700] p-4 rounded-r-xl">
+                            <h4 class="text-[#ffd700] font-bold text-xs uppercase tracking-wider mb-1">Blend Requirement</h4>
+                            <p class="text-[#e8f5e9] font-medium text-sm">Burn <strong class="text-[#00e676]">3 Thornheart Wardens</strong> = 1 Sylvan Primordial</p>
                         </div>
                     </div>
                 </div>
@@ -234,31 +324,43 @@
     </div>
 
     <!-- Footer -->
-    <footer class="text-center py-6 border-t border-borderColor text-textMuted text-sm mt-12 bg-[#050a07]">
-        <p>&copy; 2026 Botanica Mystica TCG. Collection: <code class="text-accentEmerald bg-cardBg px-2 py-0.5 rounded border border-borderColor">botanicacard</code></p>
+    <footer class="text-center py-6 border-t border-[#1b4332] text-[#a3b899] text-xs sm:text-sm bg-[#050a07]">
+        <p>&copy; 2026 Botanica Mystica TCG • Collection: <code class="text-[#00e676] bg-[#0f1c14] px-2 py-0.5 rounded border border-[#1b4332]">botanicacard</code></p>
     </footer>
 
-    <!-- Robust IPFS Gateway Fallback Script -->
+    <!-- Interactive Scripts & Robust IPFS Handler -->
     <script>
+        // Interactive Burn Calculator Logic
+        function calculateEvolution() {
+            const seeds = parseInt(document.getElementById('seedInput').value) || 0;
+            
+            const sprouts = Math.floor(seeds / 10);
+            const flora = Math.floor(sprouts / 3);
+            const wardens = Math.floor(flora / 3);
+            const primordials = Math.floor(wardens / 3);
+
+            document.getElementById('sproutYield').innerText = sprouts;
+            document.getElementById('floraYield').innerText = flora;
+            document.getElementById('wardenYield').innerText = wardens;
+            document.getElementById('primordialYield').innerText = primordials;
+        }
+
+        // IPFS Gateway Error handling
         function handleImageError(imgElement, cid) {
             const currentAttempt = imgElement.dataset.attempt || "0";
             
             if (currentAttempt === "0") {
                 imgElement.dataset.attempt = "1";
-                // Fallback 1: Direct ipfs.io public gateway
                 imgElement.src = "https://ipfs.io/ipfs/" + cid;
             } else if (currentAttempt === "1") {
                 imgElement.dataset.attempt = "2";
-                // Fallback 2: Cloudflare IPFS gateway
                 imgElement.src = "https://cloudflare-ipfs.com/ipfs/" + cid;
             } else if (currentAttempt === "2") {
                 imgElement.dataset.attempt = "3";
-                // Fallback 3: Dweb IPFS gateway
                 imgElement.src = "https://dweb.link/ipfs/" + cid;
             } else {
-                // If all IPFS gateways fail, display clean placeholder text instead of dark void
-                imgElement.parentElement.classList.remove('img-loading');
-                imgElement.parentElement.innerHTML = `<div class="p-4 text-center text-xs text-textMuted font-bold">Image Unavailable<br>(${imgElement.alt})</div>`;
+                // Keep SVG fallback visible cleanly if IPFS fails entirely
+                imgElement.style.display = "none";
             }
         }
     </script>
